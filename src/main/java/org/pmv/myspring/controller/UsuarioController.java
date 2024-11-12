@@ -1,5 +1,8 @@
 package org.pmv.myspring.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.pmv.myspring.entities.Usuario;
 import org.pmv.myspring.exception.UsuarioNotFoundException;
@@ -7,8 +10,6 @@ import org.pmv.myspring.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/usuarios")
@@ -23,6 +24,12 @@ public class UsuarioController {
         return ResponseEntity.ok(savedUsuario);
     }
 
+
+    @Operation(summary = "Obtener un usuario por ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) throws UsuarioNotFoundException {
         Usuario usuario = usuarioService.buscarUsuarioPorId(id);
