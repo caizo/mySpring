@@ -29,4 +29,8 @@ public class UsuarioService {
     public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
+
+    public Iterable<Usuario> buscarUsuarios() {
+        return usuarioRepository.findAll();
+    }
 }

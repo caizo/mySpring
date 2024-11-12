@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("api/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -27,6 +27,12 @@ public class UsuarioController {
     public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) throws UsuarioNotFoundException {
         Usuario usuario = usuarioService.buscarUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<Usuario>> obtenerUsuarios() {
+        Iterable<Usuario> usuarios = usuarioService.buscarUsuarios();
+        return ResponseEntity.ok(usuarios);
     }
 
     @PutMapping("/{id}")

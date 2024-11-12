@@ -32,7 +32,6 @@ public class UsuarioControllerTest {
 
     @Test
     public void testObtenerUsuarioNoEncontrado() throws Exception {
-
         mockMvc.perform(get("/usuarios/999"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("Usuario no encontrado"));
