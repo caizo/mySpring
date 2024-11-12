@@ -1,29 +1,35 @@
 package org.pmv.myspring.exception.handler;
 
+import org.pmv.myspring.exception.ApiError;
 import org.pmv.myspring.exception.UsuarioNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UsuarioNotFoundException.class)
-    public ResponseEntity<String> handleUsuarioNotFoundException(UsuarioNotFoundException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+    public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        List<String> errors = new ArrayList<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage()));
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+            errors.add(error.getField() + ": " + error.getDefaultMessage()));
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation error", errors);
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<ApiError> handleUsuarioNotFoundException(UsuarioNotFoundException ex) {
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "User not found", errors);
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
+    // Otros manejadores de excepciones pueden ser añadidos aquí
 }
