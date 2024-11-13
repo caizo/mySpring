@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.pmv.myspring.entities.Usuario;
-import org.pmv.myspring.exception.UsuarioNotFoundException;
+import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

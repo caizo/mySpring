@@ -1,4 +1,4 @@
-package org.pmv.myspring.exception;
+package org.pmv.myspring.exception.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
