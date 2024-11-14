@@ -29,7 +29,7 @@ public class Usuario implements UserDetails {
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 5, message = "El nombre debe tener entre 2 y 50 caracteres")
-    private String nombre;
+    private String username;
 
     @NotBlank(message = "El email es obligatorio")
     @Email(message = "El email debe ser válido")
@@ -42,8 +42,5 @@ public class Usuario implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    @Override
-    public String getUsername() {
-        return this.getNombre();
-    }
+
 }
