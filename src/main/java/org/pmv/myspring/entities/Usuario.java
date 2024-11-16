@@ -28,7 +28,7 @@ public class Usuario implements UserDetails {
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
-    @Size(min = 2, max = 5, message = "El nombre debe tener entre 2 y 50 caracteres")
+    @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
     private String username;
 
     @NotBlank(message = "El email es obligatorio")

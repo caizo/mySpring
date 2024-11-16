@@ -84,7 +84,7 @@ public class UsuarioService {
 
         Usuario usuario = Usuario.builder()
                 .email(registroRequest.getEmail())
-                .username(registroRequest.getNombre())
+                .username(registroRequest.getUsername())
                 .role(Role.CLIENTE)
                 .password(passwordEncoder.encode(registroRequest.getPassword())).build();
         this.usuarioRepository.save(usuario);
