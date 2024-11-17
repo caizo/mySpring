@@ -24,6 +24,9 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TokenService tokenService;
+
     /**
      * Guarda un usuario en la base de datos
      *
@@ -104,5 +107,9 @@ public class UsuarioService {
                 .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
 
         return AuthResponse.builder().jwt(this.jwtUtil.generateToken(usuario.getUsername())).build();
+    }
+
+    public void logout(String token) {
+        this.tokenService.invalidateToken(token);
     }
 }

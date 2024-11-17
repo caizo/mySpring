@@ -1,12 +1,12 @@
 package org.pmv.myspring.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.exception.errors.ApiError;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.request.LoginRequest;
 import org.pmv.myspring.request.RegistroRequest;
 import org.pmv.myspring.response.AuthResponse;
 import org.pmv.myspring.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class AuthController {
 
     public static final String EMAIL_INTRODUCIDO_YA_EXISTE = "El email introducido ya existe";
 
-    @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final UsuarioService usuarioService;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/registro")
     public ResponseEntity<?> register(@RequestBody RegistroRequest registroRequest) {
@@ -46,6 +44,13 @@ public class AuthController {
         return ResponseEntity.ok(response);
 
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
+        this.usuarioService.logout(token);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) throws UsuarioNotFoundException {
