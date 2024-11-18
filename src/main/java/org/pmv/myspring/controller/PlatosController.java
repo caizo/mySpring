@@ -3,7 +3,6 @@ package org.pmv.myspring.controller;
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.dto.PlatoDTO;
 import org.pmv.myspring.service.PlatosService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlatosController {
 
-    @Autowired
-    private PlatosService platosService;
+    private final PlatosService platosService;
 
     @GetMapping("/restaurante/{restauranteId}")
     public List<PlatoDTO> findPlatosByRestaurante(@PathVariable Long restauranteId) {
-        List<PlatoDTO> platos = platosService.findPlatosByRestaurante(restauranteId);
-        return platos;
+        return platosService.findPlatosByRestaurante(restauranteId);
+
     }
 }
