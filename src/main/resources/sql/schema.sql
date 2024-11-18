@@ -17,3 +17,41 @@ CREATE TABLE restaurante
     email     VARCHAR(255) NOT NULL,
     imagen    BLOB
 );
+
+CREATE TABLE TipoPlato
+(
+    id   BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE plato
+(
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre      VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio      DECIMAL(10, 2) NOT NULL,
+    imagen      BLOB,
+    restaurante_id BIGINT NOT NULL,
+    tipo        VARCHAR(50) NOT NULL,
+    FOREIGN KEY (restaurante_id) REFERENCES restaurante (id)
+);
+
+CREATE TABLE menu
+(
+    id             BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre         VARCHAR(100) NOT NULL,
+    descripcion    VARCHAR(100) NOT NULL,
+    fecha          DATE NOT NULL,
+    precio         DECIMAL(10, 2) NOT NULL,
+    restaurante_id BIGINT NOT NULL,
+    FOREIGN KEY (restaurante_id) REFERENCES restaurante (id)
+);
+
+CREATE TABLE menu_plato
+(
+    menu_id  BIGINT NOT NULL,
+    plato_id BIGINT NOT NULL,
+    PRIMARY KEY (menu_id, plato_id),
+    FOREIGN KEY (menu_id) REFERENCES menu (id),
+    FOREIGN KEY (plato_id) REFERENCES plato (id)
+);
