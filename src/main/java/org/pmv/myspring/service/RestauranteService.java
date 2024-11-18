@@ -16,4 +16,8 @@ public class RestauranteService {
     public List<Restaurante> listarRestaurantes() {
         return restauranteRepository.findAll();
     }
+
+    public List<Restaurante> buscarPorNombre(String nombre) {
+        return restauranteRepository.findByNombreContainingIgnoreCase(nombre);
+    }
 }
