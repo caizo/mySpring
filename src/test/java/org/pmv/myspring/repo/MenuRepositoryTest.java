@@ -30,7 +30,7 @@ class MenuRepositoryTest {
     private PlatoRepository platoRepository;
 
     @Test
-    void createMenuForToday() {
+    void createMenuForTodayTest() {
         Restaurante restaurante = restauranteRepository.findById(1L).orElseThrow();
         Menu menu = new Menu();
         menu.setPrecio(13.00);
