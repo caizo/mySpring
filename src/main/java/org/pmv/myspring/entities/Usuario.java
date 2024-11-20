@@ -1,9 +1,6 @@
 package org.pmv.myspring.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -34,7 +31,10 @@ public class Usuario implements UserDetails {
     @NotBlank(message = "El email es obligatorio")
     @Email(message = "El email debe ser válido")
     private String email;
+
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
