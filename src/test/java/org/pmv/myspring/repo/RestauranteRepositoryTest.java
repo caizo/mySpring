@@ -20,12 +20,8 @@ public class RestauranteRepositoryTest {
 
     @Test
     public void testFindByNombreContainingIgnoreCase() {
-
-
-        // When
         List<Restaurante> found = restauranteRepository.findByNombreContainingIgnoreCase("empanadas");
 
-        // Then
         assertThat(found).isNotEmpty();
         assertThat(found.get(0).getNombre()).isEqualTo("La Casa de las Empanadas");
     }
