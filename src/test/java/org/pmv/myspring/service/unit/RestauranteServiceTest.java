@@ -1,10 +1,11 @@
-package org.pmv.myspring.service;
+package org.pmv.myspring.service.unit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.pmv.myspring.entities.Restaurante;
 import org.pmv.myspring.repo.RestauranteRepository;
 import org.pmv.myspring.request.RestauranteRequest;
+import org.pmv.myspring.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 class RestauranteServiceTest {
 
     @Autowired

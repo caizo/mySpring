@@ -27,4 +27,8 @@ public class RestauranteService {
     public Restaurante editarInformacionRestaurante(RestauranteRequest restauranteRequest) {
         return restauranteRepository.save(restauranteMapper.toRestauranteEntity(restauranteRequest));
     }
+
+    public Restaurante crearRestaurante(RestauranteRequest restauranteRequest) {
+        return restauranteRepository.save(restauranteMapper.toRestauranteEntity(restauranteRequest));
+    }
 }

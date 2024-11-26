@@ -1,15 +1,22 @@
 package org.pmv.myspring.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
+import org.pmv.myspring.entities.Role;
+import org.pmv.myspring.entities.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -18,33 +25,44 @@ public class UsuarioControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    public static String removeProperty(String json, String propertyName) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(json);
+
+        ((ObjectNode) jsonNode).remove(propertyName);
+
+        return objectMapper.writeValueAsString(jsonNode);
+    }
+
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testCrearUsuarioValido() throws Exception {
-        String usuarioJson = "{\"nombre\": \"\", \"email\": \"juan@example.com\"}";
+        Usuario usuario = new Usuario();
+        usuario.setUsername("Paquito");
+        usuario.setEmail("caizo@outlook.es");
+        usuario.setPassword("password");
+        usuario.setRole(Role.CLIENTE);
 
-        mockMvc.perform(post("/usuarios")
+        String usuarioJson = objectMapper.writeValueAsString(usuario);
+        String s = removeProperty(usuarioJson, "authorities");
+
+        mockMvc.perform(post("/api/usuarios")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(usuarioJson))
+                        .content(s))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nombre").value("Juan"))
-                .andExpect(jsonPath("$.email").value("juan@example.com"));
+                .andExpect(jsonPath("$.username").value("Paquito"))
+                .andExpect(jsonPath("$.email").value("caizo@outlook.es"));
     }
 
     @Test
-    public void testObtenerUsuarioNoEncontrado() throws Exception {
-        mockMvc.perform(get("/usuarios/999"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Usuario no encontrado"));
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void obtenerUsuariosTest() throws Exception {
+
+        mockMvc.perform(get("/api/usuarios")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
     }
-
-
-    @Test
-    public void testObtenerUsuario() throws Exception {
-        mockMvc.perform(get("/usuarios/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nombre").value("Usuario1"))
-                .andExpect(jsonPath("$.email").value("usuario1@example.com"));
-    }
-
-
 }

@@ -1,6 +1,5 @@
 package org.pmv.myspring.repo;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.pmv.myspring.entities.Restaurante;
@@ -9,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +30,7 @@ public class RestauranteRepositoryTest {
 
     @Test
     public void editarInformacionRestauranteTest(){
-        Restaurante restaurante = restauranteRepository.findById(1L).get();
+        Restaurante restaurante = restaurante1();
 
         String nuevoNombre = "Monte Naranco";
         String nuevaDireccion = "Menéndez Pelayo, 15";
@@ -46,10 +46,14 @@ public class RestauranteRepositoryTest {
 
         restauranteRepository.save(restaurante);
 
-        assertThat(restauranteRepository.findById(1L).get().getNombre()).isEqualTo(nuevoNombre);
-        assertThat(restauranteRepository.findById(1L).get().getDireccion()).isEqualTo(nuevaDireccion);
-        assertThat(restauranteRepository.findById(1L).get().getTelefono()).isEqualTo(nuevoTelefono);
-        assertThat(restauranteRepository.findById(1L).get().getEmail()).isEqualTo(nuevoEmail);
+        assertThat(restaurante1().getNombre()).isEqualTo(nuevoNombre);
+        assertThat(restaurante1().getDireccion()).isEqualTo(nuevaDireccion);
+        assertThat(restaurante1().getTelefono()).isEqualTo(nuevoTelefono);
+        assertThat(restaurante1().getEmail()).isEqualTo(nuevoEmail);
+    }
+
+    private Restaurante restaurante1() {
+        return restauranteRepository.findById(1L).orElseThrow(() -> new NoSuchElementException("Restaurante 1 no encontrado"));
     }
 
 }

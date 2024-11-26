@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.pmv.myspring.entities.Role;
 import org.pmv.myspring.validations.ValidarTipoUsuario;
 
 @Data
@@ -23,5 +24,8 @@ public class RegistroRequest {
     @ValidarTipoUsuario
     @NotBlank(message = "El tipo de usuario es requerido")
     private String tipo;
+
+    @NotBlank(message = "El rol es requerido")
+    private Role role;
 
 }

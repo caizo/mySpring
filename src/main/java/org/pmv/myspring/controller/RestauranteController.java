@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.entities.Restaurante;
 import org.pmv.myspring.request.RestauranteRequest;
 import org.pmv.myspring.service.RestauranteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +33,11 @@ public class RestauranteController {
     public ResponseEntity<Restaurante> editarInformacionRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
         Restaurante restauranteEditado = restauranteService.editarInformacionRestaurante(restauranteRequest);
         return ResponseEntity.ok(restauranteEditado);
+    }
+
+    @PostMapping("/crear")
+    public ResponseEntity<Restaurante> crearRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
+        Restaurante restauranteGuardado = restauranteService.crearRestaurante(restauranteRequest);
+        return ResponseEntity.ok(restauranteGuardado);
     }
 }
