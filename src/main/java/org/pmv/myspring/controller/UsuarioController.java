@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.entities.Usuario;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.service.UsuarioService;
@@ -20,8 +21,8 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@Valid @RequestBody Usuario usuario) {
-        Usuario savedUsuario = usuarioService.guardarUsuario(usuario);
+    public ResponseEntity<UsuarioDTO> crearUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+        UsuarioDTO savedUsuario = usuarioService.guardarUsuario(usuarioDTO);
         return ResponseEntity.ok(savedUsuario);
     }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
+import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.entities.Role;
 import org.pmv.myspring.entities.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +41,17 @@ public class UsuarioControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testCrearUsuarioValido() throws Exception {
-        Usuario usuario = new Usuario();
+        UsuarioDTO usuario = new UsuarioDTO();
         usuario.setUsername("Paquito");
         usuario.setEmail("caizo@outlook.es");
         usuario.setPassword("password");
         usuario.setRole(Role.CLIENTE);
 
         String usuarioJson = objectMapper.writeValueAsString(usuario);
-        String s = removeProperty(usuarioJson, "authorities");
 
         mockMvc.perform(post("/api/usuarios")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(s))
+                        .content(usuarioJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("Paquito"))
                 .andExpect(jsonPath("$.email").value("caizo@outlook.es"));

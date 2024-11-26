@@ -25,8 +25,22 @@ public class UsuarioService {
     private final EmailService emailService;
 
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
+        Usuario usuario = Usuario.builder()
+                .email(usuarioDTO.getEmail())
+                .username(usuarioDTO.getUsername())
+                .role(usuarioDTO.getRole())
+                .password(passwordEncoder.encode(usuarioDTO.getPassword())).build();
+
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
+
+        return UsuarioDTO.builder()
+                .id(usuarioGuardado.getId())
+                .email(usuarioGuardado.getEmail())
+                .username(usuarioGuardado.getUsername())
+                .role(usuarioGuardado.getRole())
+                .build();
+
     }
 
     public Usuario buscarUsuarioPorId(Long id) throws UsuarioNotFoundException {
