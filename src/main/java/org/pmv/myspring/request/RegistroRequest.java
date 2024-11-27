@@ -22,9 +22,6 @@ public class RegistroRequest {
     private String password;
 
     @ValidarTipoUsuario
-    @NotBlank(message = "El tipo de usuario es requerido")
-    private String tipo;
-
     @NotBlank(message = "El rol es requerido")
     private Role role;
 

@@ -17,4 +17,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             "WHERE LOWER(u.username) LIKE LOWER(CONCAT('%', :username, '%')) " +
             "and u.role = 'CLIENTE'")
     Optional<List<UsuarioDTO>> findClientesByUsername(String username);
+
+    @Query("SELECT new org.pmv.myspring.dto.UsuarioDTO(u.id, u.username, u.email, u.role) " +
+            "FROM Usuario u where u.role = 'CLIENTE'")
+    Optional<List<UsuarioDTO>> findClientes();
 }

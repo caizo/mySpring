@@ -52,7 +52,7 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    public void obtenerUsuariosTest() throws Exception {
+    public void buscarClientesTest() throws Exception {
         mockMvc.perform(get("/api/usuarios")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(jsonPath("$").isArray());

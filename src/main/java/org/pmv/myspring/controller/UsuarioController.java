@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/usuarios")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
 
@@ -57,16 +58,17 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Usuario>> obtenerUsuarios() {
-        Iterable<Usuario> usuarios = usuarioService.buscarUsuarios();
-        return ResponseEntity.ok(usuarios);
+    public ResponseEntity<List<UsuarioDTO>> buscarClientes() throws UsuarioNotFoundException {
+        List<UsuarioDTO> clientes = usuarioService.buscarClientes();
+        if (clientes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(clientes);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        usuario.setId(id);
-        Usuario updatedUsuario = usuarioService.actualizarUsuario(usuario);
-        return ResponseEntity.ok(updatedUsuario);
+    @PutMapping()
+    public ResponseEntity<UsuarioDTO> actualizarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
+        return ResponseEntity.ok(usuarioService.actualizarUsuario(usuarioDTO));
     }
 
     @DeleteMapping("/{id}")

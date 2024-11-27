@@ -41,8 +41,20 @@ public class UsuarioService {
 
     }
 
-    public Usuario actualizarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
+        Usuario usuarioSinModificar = usuarioRepository.findById(usuarioDTO.getId()).orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
+
+        usuarioSinModificar.setUsername(usuarioDTO.getUsername());
+        usuarioSinModificar.setEmail(usuarioDTO.getEmail());
+
+        Usuario usuarioModificado = usuarioRepository.save(usuarioSinModificar);
+
+        return UsuarioDTO.builder()
+                .id(usuarioModificado.getId())
+                .email(usuarioModificado.getEmail())
+                .username(usuarioModificado.getUsername())
+                .role(usuarioModificado.getRole())
+                .build();
 
     }
 
@@ -51,8 +63,8 @@ public class UsuarioService {
 
     }
 
-    public Iterable<Usuario> buscarUsuarios() {
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> buscarClientes() throws UsuarioNotFoundException {
+        return usuarioRepository.findClientes().orElseThrow(() -> new UsuarioNotFoundException("No se encontraron usuarios"));
 
     }
 
