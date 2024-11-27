@@ -30,6 +30,7 @@ public class Usuario implements UserDetails {
 
     @NotBlank(message = "El email es obligatorio")
     @Email(message = "El email debe ser válido")
+    @Column(unique = true)
     private String email;
 
     private String password;

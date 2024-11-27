@@ -5,7 +5,7 @@ import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.request.LoginRequest;
 import org.pmv.myspring.request.RegistroRequest;
 import org.pmv.myspring.response.AuthResponse;
-import org.pmv.myspring.service.UsuarioService;
+import org.pmv.myspring.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UsuarioService usuarioService;
+    private final AuthService authService;
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/registro")
     public ResponseEntity<?> registroDeUsuario(@RequestBody RegistroRequest registroRequest) {
-        this.usuarioService.registroDeUsuario(registroRequest);
+        this.authService.registroDeUsuario(registroRequest);
         return ResponseEntity.ok().build();
     }
 
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
-        this.usuarioService.logout(token);
+        this.authService.logout(token);
         return ResponseEntity.ok().build();
     }
 
@@ -39,7 +39,7 @@ public class AuthController {
 
         autenticarUsuario(loginRequest);
 
-        AuthResponse login = this.usuarioService.login(loginRequest);
+        AuthResponse login = this.authService.login(loginRequest);
         return ResponseEntity.ok(login);
     }
 

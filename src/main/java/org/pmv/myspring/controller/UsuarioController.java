@@ -12,6 +12,8 @@ import org.pmv.myspring.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/usuarios")
 @RequiredArgsConstructor
@@ -36,6 +38,22 @@ public class UsuarioController {
     public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) throws UsuarioNotFoundException {
         Usuario usuario = usuarioService.buscarUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
+
+    }
+
+    @Operation(summary = "Obtener un usuario por nombre")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
+            @ApiResponse(responseCode = "204", description = "Usuario no encontrado")
+    })
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<UsuarioDTO>> obtenerUsuarioPorNombre(@PathVariable String nombre) throws UsuarioNotFoundException {
+        List<UsuarioDTO> usuarioDTOS = usuarioService.buscarUsuarioPorNombre(nombre);
+        if (usuarioDTOS.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(usuarioDTOS);
     }
 
     @GetMapping
