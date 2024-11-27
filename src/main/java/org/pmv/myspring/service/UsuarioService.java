@@ -19,52 +19,36 @@ public class UsuarioService {
 
 
     public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuario = Usuario.builder()
-                .email(usuarioDTO.getEmail())
-                .username(usuarioDTO.getUsername())
-                .role(usuarioDTO.getRole())
-                .password(passwordEncoder.encode(usuarioDTO.getPassword())).build();
-
-        Usuario usuarioGuardado = usuarioRepository.save(usuario);
-
-        return UsuarioDTO.builder()
-                .id(usuarioGuardado.getId())
-                .email(usuarioGuardado.getEmail())
-                .username(usuarioGuardado.getUsername())
-                .role(usuarioGuardado.getRole())
-                .build();
+        Usuario usuarioGuardado = usuarioRepository.save(Usuario.from(usuarioDTO, passwordEncoder.encode(usuarioDTO.getPassword())));
+        return UsuarioDTO.from(usuarioGuardado);
 
     }
 
-    public Usuario buscarUsuarioPorId(Long id) throws UsuarioNotFoundException {
-        return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
+    public UsuarioDTO buscarUsuarioPorId(Long id) throws UsuarioNotFoundException {
+        return usuarioRepository.findById(id)
+                .map(UsuarioDTO::from)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
 
     }
 
     public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
-        Usuario usuarioSinModificar = usuarioRepository.findById(usuarioDTO.getId()).orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
-
-        usuarioSinModificar.setUsername(usuarioDTO.getUsername());
-        usuarioSinModificar.setEmail(usuarioDTO.getEmail());
-
-        Usuario usuarioModificado = usuarioRepository.save(usuarioSinModificar);
-
-        return UsuarioDTO.builder()
-                .id(usuarioModificado.getId())
-                .email(usuarioModificado.getEmail())
-                .username(usuarioModificado.getUsername())
-                .role(usuarioModificado.getRole())
-                .build();
-
+        return usuarioRepository.findById(usuarioDTO.getId())
+                .map(usuario -> {
+                    usuario.setUsername(usuarioDTO.getUsername());
+                    usuario.setEmail(usuarioDTO.getEmail());
+                    return usuarioRepository.save(usuario);
+                })
+                .map(UsuarioDTO::from)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
     }
 
     public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id);
-
     }
 
     public List<UsuarioDTO> buscarClientes() throws UsuarioNotFoundException {
-        return usuarioRepository.findClientes().orElseThrow(() -> new UsuarioNotFoundException("No se encontraron usuarios"));
+        return usuarioRepository.findClientes()
+                .orElseThrow(() -> new UsuarioNotFoundException("No se encontraron usuarios"));
 
     }
 

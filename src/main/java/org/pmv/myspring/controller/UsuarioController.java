@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.dto.UsuarioDTO;
-import org.pmv.myspring.entities.Usuario;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +35,9 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) throws UsuarioNotFoundException {
-        Usuario usuario = usuarioService.buscarUsuarioPorId(id);
-        return ResponseEntity.ok(usuario);
+    public ResponseEntity<UsuarioDTO> obtenerUsuario(@PathVariable Long id) throws UsuarioNotFoundException {
+        UsuarioDTO usuarioDTO = usuarioService.buscarUsuarioPorId(id);
+        return ResponseEntity.ok(usuarioDTO);
 
     }
 

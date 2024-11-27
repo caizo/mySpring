@@ -41,6 +41,7 @@ public class AuthService {
         return UsuarioDTO.builder()
                 .id(usuario.getId())
                 .email(usuario.getEmail())
+                .telefono(usuario.getTelefono())
                 .username(usuario.getUsername())
                 .role(usuario.getRole())
                 .build();
@@ -51,6 +52,7 @@ public class AuthService {
                 .email(registroRequest.getEmail())
                 .username(registroRequest.getUsername())
                 .role(registroRequest.getRole())
+                .telefono(registroRequest.getTelefono())
                 .password(passwordEncoder.encode(registroRequest.getPassword())).build();
 
         this.usuarioRepository.save(usuario);

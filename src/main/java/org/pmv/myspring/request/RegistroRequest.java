@@ -18,6 +18,9 @@ public class RegistroRequest {
     @NotBlank(message = "El email es requerido")
     private String email;
 
+    @NotBlank(message = "El telefono es requerido")
+    private String telefono;
+
     @NotBlank(message = "La contraseña es requerida")
     private String password;
 

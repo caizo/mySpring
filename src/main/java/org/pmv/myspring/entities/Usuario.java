@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.pmv.myspring.dto.UsuarioDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,10 +34,23 @@ public class Usuario implements UserDetails {
     @Column(unique = true)
     private String email;
 
+    @NotBlank(message = "El telefono es obligatorio")
+    @Column(unique = true)
+    private String telefono;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public static Usuario from(UsuarioDTO usuarioDTO, String encodedPassword) {
+        return Usuario.builder()
+                .email(usuarioDTO.getEmail())
+                .telefono(usuarioDTO.getTelefono())
+                .username(usuarioDTO.getUsername())
+                .role(usuarioDTO.getRole())
+                .password(encodedPassword).build();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

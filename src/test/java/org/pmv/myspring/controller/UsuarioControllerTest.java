@@ -42,12 +42,17 @@ public class UsuarioControllerTest {
                         .content(usuarioJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("Paquito"))
-                .andExpect(jsonPath("$.email").value("caizo@outlook.es"));
+                .andExpect(jsonPath("$.telefono").value("673418188"))
+                .andExpect(jsonPath("$.email").value("caizo@outlook.com"));
     }
 
     private String crearUsuario() throws JsonProcessingException {
         return objectMapper.writeValueAsString(UsuarioDTO.builder()
-                .username("Paquito").email("caizo@outlook.es").password("password").role(Role.CLIENTE).build());
+                .username("Paquito")
+                .email("caizo@outlook.com")
+                .telefono("673418188")
+                .password("password")
+                .role(Role.CLIENTE).build());
     }
 
     @Test
