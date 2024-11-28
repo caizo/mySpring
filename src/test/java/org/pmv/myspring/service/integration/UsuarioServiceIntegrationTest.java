@@ -18,10 +18,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
 @Transactional
+@SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 class UsuarioServiceIntegrationTest {
 

@@ -1,7 +1,7 @@
 package org.pmv.myspring.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.entities.Restaurante;
+import org.pmv.myspring.dto.RestauranteDTO;
 import org.pmv.myspring.request.RestauranteRequest;
 import org.pmv.myspring.service.RestauranteService;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +18,26 @@ public class RestauranteController {
     private final RestauranteService restauranteService;
 
     @GetMapping
-    public ResponseEntity<List<Restaurante>> obtenerRestaurantes() {
-        List<Restaurante> restaurantes = restauranteService.listarRestaurantes();
+    public ResponseEntity<List<RestauranteDTO>> buscarTodos() {
+        List<RestauranteDTO> restaurantes = restauranteService.buscarTodos();
         return ResponseEntity.ok(restaurantes);
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<Restaurante>> buscarRestaurantesPorNombre(@RequestParam String nombre) {
-        List<Restaurante> restaurantes = restauranteService.buscarPorNombre(nombre);
+    public ResponseEntity<List<RestauranteDTO>> buscarRestaurantesPorNombre(@RequestParam String nombre) {
+        List<RestauranteDTO> restaurantes = restauranteService.buscarPorNombre(nombre);
         return ResponseEntity.ok(restaurantes);
     }
 
     @PutMapping("/editar")
-    public ResponseEntity<Restaurante> editarInformacionRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
-        Restaurante restauranteEditado = restauranteService.editarInformacionRestaurante(restauranteRequest);
-        return ResponseEntity.ok(restauranteEditado);
+    public ResponseEntity<?> actualizarRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
+        restauranteService.guardarRestaurante(restauranteRequest);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Restaurante> crearRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
-        Restaurante restauranteGuardado = restauranteService.crearRestaurante(restauranteRequest);
-        return ResponseEntity.ok(restauranteGuardado);
+    public ResponseEntity<?> crearRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
+        restauranteService.guardarRestaurante(restauranteRequest);
+        return ResponseEntity.ok().build();
     }
 }

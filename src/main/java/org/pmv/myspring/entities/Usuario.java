@@ -52,6 +52,15 @@ public class Usuario implements UserDetails {
                 .password(encodedPassword).build();
     }
 
+    public static Usuario from(UsuarioDTO usuarioDTO) {
+        return Usuario.builder()
+                .id(usuarioDTO.getId())
+                .email(usuarioDTO.getEmail())
+                .telefono(usuarioDTO.getTelefono())
+                .username(usuarioDTO.getUsername())
+                .role(usuarioDTO.getRole()).build();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

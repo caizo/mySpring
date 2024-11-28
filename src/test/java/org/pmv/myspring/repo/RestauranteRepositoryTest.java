@@ -1,7 +1,9 @@
 package org.pmv.myspring.repo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.pmv.myspring.dto.RestauranteDTO;
 import org.pmv.myspring.entities.Restaurante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,11 +23,21 @@ public class RestauranteRepositoryTest {
     private RestauranteRepository restauranteRepository;
 
     @Test
-    public void testFindByNombreContainingIgnoreCase() {
-        List<Restaurante> found = restauranteRepository.findByNombreContainingIgnoreCase("empanadas");
+    public void testBuscarRestaurantesTest() {
+        List<RestauranteDTO> found = restauranteRepository.buscarRestaurantes("empanadas");
 
-        assertThat(found).isNotEmpty();
-        assertThat(found.get(0).getNombre()).isEqualTo("La Casa de las Empanadas");
+        Assertions.assertNotNull(found);
+        Assertions.assertEquals(1, found.size());
+
+        RestauranteDTO result = found.get(0);
+
+        Assertions.assertEquals("La Casa de las Empanadas", result.getNombre());
+        Assertions.assertEquals("Avenida Siempre Viva 742", result.getDireccion());
+        Assertions.assertEquals("0987654321", result.getTelefono());
+        Assertions.assertEquals("info@empanadas.com", result.getEmail());
+        Assertions.assertEquals("Mexicana", result.getTipoRestaurante());
+
+
     }
 
     @Test

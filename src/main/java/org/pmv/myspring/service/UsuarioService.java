@@ -33,11 +33,7 @@ public class UsuarioService {
 
     public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
         return usuarioRepository.findById(usuarioDTO.getId())
-                .map(usuario -> {
-                    usuario.setUsername(usuarioDTO.getUsername());
-                    usuario.setEmail(usuarioDTO.getEmail());
-                    return usuarioRepository.save(usuario);
-                })
+                .map(usuario -> usuarioRepository.save(Usuario.from(usuarioDTO)))
                 .map(UsuarioDTO::from)
                 .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
     }

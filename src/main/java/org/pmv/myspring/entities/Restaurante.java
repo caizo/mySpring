@@ -1,14 +1,11 @@
 package org.pmv.myspring.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.pmv.myspring.request.RestauranteRequest;
 
 @Getter
 @Setter
@@ -45,4 +42,20 @@ public class Restaurante {
 
     @Column(name = "imagen")
     private byte[] imagen;
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_restaurante_id", nullable = false)
+    private TipoRestaurante tipoRestaurante;
+
+
+    public static Restaurante from(RestauranteRequest restauranteRequest) {
+        return Restaurante.builder()
+                .id(restauranteRequest.getId())
+                .nombre(restauranteRequest.getNombre())
+                .direccion(restauranteRequest.getDireccion())
+                .telefono(restauranteRequest.getTelefono())
+                .email(restauranteRequest.getEmail())
+                .tipoRestaurante(TipoRestaurante.builder().id(restauranteRequest.getTipoRestauranteId()).build())
+                .build();
+    }
 }
