@@ -1,8 +1,10 @@
 package org.pmv.myspring.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.pmv.myspring.dto.RestauranteDTO;
 import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -23,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class UsuarioControllerTest {
+public class UsuarioControllerTest extends BaseControllerTest{
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,17 +38,38 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    public void testCrearUsuarioValido() throws Exception {
+    public void crearUsuarioValidoTest() throws Exception {
 
         String usuarioJson = crearUsuario();
 
-        mockMvc.perform(post("/api/usuarios")
+        String responseJson = mockMvc.perform(post("/api/usuarios")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(usuarioJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("Paquito"))
-                .andExpect(jsonPath("$.telefono").value("673418188"))
-                .andExpect(jsonPath("$.email").value("caizo@outlook.com"));
+                .andReturn().getResponse().getContentAsString();
+
+        UsuarioDTO usuarioDTO = objectMapper.readValue (responseJson, UsuarioDTO.class);
+
+        assertNotNull(usuarioDTO);
+        assertNotNull(usuarioDTO.getId());
+        assertEquals("Paquito", usuarioDTO.getUsername());
+        assertEquals("caizo@outlook.com", usuarioDTO.getEmail());
+        assertEquals("673418188", usuarioDTO.getTelefono());
+        assertEquals(Role.CLIENTE, usuarioDTO.getRole());
+
+
+    }
+
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void crearUsuarioConErrorDeValidacionTest() throws Exception {
+        String usuarioJson = objectMapper.writeValueAsString(UsuarioDTO.builder().build());
+        mockMvc.perform(post("/api/usuarios")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(usuarioJson))
+                .andExpect(status().isBadRequest());
+
     }
 
     private String crearUsuario() throws JsonProcessingException {

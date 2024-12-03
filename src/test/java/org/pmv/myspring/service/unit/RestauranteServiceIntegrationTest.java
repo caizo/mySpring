@@ -29,11 +29,6 @@ class RestauranteServiceIntegrationTest {
     private RestauranteService restauranteService;
 
     @Test
-    void buscarTodos() {
-        // Test implementation
-    }
-
-    @Test
     void buscarPorNombreTest() {
         List<RestauranteDTO> results = this.restauranteService.buscarPorNombre("LAs empanadas");
         assertNotNull(results);
