@@ -167,12 +167,12 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <configuration>
-                            <reports>
-                                <xml>enabled</xml>
-                                <html>enabled</html>
-                            </reports>
-                        </configuration>
+<!--                        <configuration>-->
+<!--                            <reports>-->
+<!--                                <xml>enabled</xml>-->
+<!--                                <html>enabled</html>-->
+<!--                            </reports>-->
+<!--                        </configuration>-->
                     </execution>
                 </executions>
             </plugin>
