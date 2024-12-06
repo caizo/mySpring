@@ -16,6 +16,6 @@ public class RestauranteRequest {
     private String direccion;
     private String telefono;
     private String email;
-    private TipoDeRestaurante tipoRestauranteId;
+    private TipoDeRestaurante tipoRestaurante;
 
 }

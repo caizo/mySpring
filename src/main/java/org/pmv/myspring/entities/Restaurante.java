@@ -54,7 +54,7 @@ public class Restaurante {
                 .direccion(restauranteRequest.getDireccion())
                 .telefono(restauranteRequest.getTelefono())
                 .email(restauranteRequest.getEmail())
-                .tipoRestaurante(restauranteRequest.getTipoRestauranteId())
+                .tipoRestaurante(restauranteRequest.getTipoRestaurante())
                 .build();
     }
 }
