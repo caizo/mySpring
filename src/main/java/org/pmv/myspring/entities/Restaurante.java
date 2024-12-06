@@ -31,7 +31,7 @@ public class Restaurante {
     private String direccion;
 
     @NotBlank(message = "El teléfono es obligatorio")
-    @Size(min = 10, max = 15, message = "El teléfono debe tener entre 10 y 15 caracteres")
+    @Size(min = 9, max = 15, message = "El teléfono debe tener entre 9 y 15 caracteres")
     @Column(name = "telefono")
     private String telefono;
 
@@ -47,6 +47,9 @@ public class Restaurante {
     @Column(name = "tipo_restaurante", nullable = false)
     private TipoDeRestaurante tipoRestaurante;
 
+    @Column(name = "descripcion")
+    private String descripcion;
+
     public static Restaurante from(RestauranteRequest restauranteRequest) {
         return Restaurante.builder()
                 .id(restauranteRequest.getId())
@@ -55,6 +58,7 @@ public class Restaurante {
                 .telefono(restauranteRequest.getTelefono())
                 .email(restauranteRequest.getEmail())
                 .tipoRestaurante(restauranteRequest.getTipoRestaurante())
+                .descripcion(restauranteRequest.getDescripcion())
                 .build();
     }
 }

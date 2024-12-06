@@ -17,6 +17,7 @@ public class RestauranteDTO {
     private String telefono;
     private String email;
     private TipoDeRestaurante tipoRestaurante;
+    private String descripcion;
 
     public static RestauranteDTO from(Restaurante restaurante) {
         return RestauranteDTO.builder()
@@ -26,6 +27,7 @@ public class RestauranteDTO {
                 .telefono(restaurante.getTelefono())
                 .email(restaurante.getEmail())
                 .tipoRestaurante(restaurante.getTipoRestaurante())
+                .descripcion(restaurante.getDescripcion())
                 .build();
     }
 

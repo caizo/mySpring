@@ -6,6 +6,8 @@ import org.pmv.myspring.request.LoginRequest;
 import org.pmv.myspring.request.RegistroRequest;
 import org.pmv.myspring.response.AuthResponse;
 import org.pmv.myspring.service.AuthService;
+import org.pmv.myspring.ws.soap.country.CountryClient;
+import org.pmv.myspring.ws.soap.country.TCountryInfo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
+    private final CountryClient countryClient;
 
     @PostMapping("/registro")
     public ResponseEntity<?> registroDeUsuario(@RequestBody RegistroRequest registroRequest) {
@@ -37,6 +40,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) throws UsuarioNotFoundException {
 
+        TCountryInfo countryInfo = this.countryClient.getCountryInfo("ES");
+        System.out.println(countryInfo);
         autenticarUsuario(loginRequest);
 
         AuthResponse login = this.authService.login(loginRequest);

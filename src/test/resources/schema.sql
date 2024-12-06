@@ -20,7 +20,8 @@ CREATE TABLE restaurante
     telefono             VARCHAR(15)  NOT NULL,
     email                VARCHAR(255) NOT NULL,
     imagen               BLOB,
-    tipo_restaurante  VARCHAR(100) NOT NULL
+    tipo_restaurante     VARCHAR(100) NOT NULL,
+    descripcion          VARCHAR(255) NULL
 );
 
 

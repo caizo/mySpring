@@ -17,5 +17,6 @@ public class RestauranteRequest {
     private String telefono;
     private String email;
     private TipoDeRestaurante tipoRestaurante;
+    private String descripcion;
 
 }

@@ -27,6 +27,7 @@ public class RestauranteControllerTest extends BaseControllerTest {
         assertEquals("Calle Falsa 123", result1.getDireccion());
         assertEquals("1234567890", result1.getTelefono());
         assertEquals("contacto@elbuen.com", result1.getEmail());
+        assertEquals("Restaurante de comida china", result1.getDescripcion());
         assertEquals(TipoDeRestaurante.CHINO, result1.getTipoRestaurante());
     }
 

@@ -59,7 +59,7 @@ class RestauranteServiceIntegrationTest {
                 .direccion("Tolombreo de arriba, 15")
                 .telefono("1234567890")
                 .email("pescador@gmail.com")
-                .tipoRestauranteId(TipoDeRestaurante.ESPANOLA).build();
+                .tipoRestaurante(TipoDeRestaurante.ESPANOLA).build();
 
         this.restauranteService.guardarRestaurante(request);
 
