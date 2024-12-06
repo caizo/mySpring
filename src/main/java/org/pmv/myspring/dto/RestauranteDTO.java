@@ -2,6 +2,8 @@ package org.pmv.myspring.dto;
 
 import lombok.*;
 import org.pmv.myspring.entities.Restaurante;
+import org.pmv.myspring.entities.TipoDeRestaurante;
+import org.pmv.myspring.entities.TipoRestaurante;
 
 @Getter
 @Setter
@@ -14,7 +16,7 @@ public class RestauranteDTO {
     private String direccion;
     private String telefono;
     private String email;
-    private String tipoRestaurante;
+    private TipoDeRestaurante tipoRestaurante;
 
     public static RestauranteDTO from(Restaurante restaurante) {
         return RestauranteDTO.builder()
@@ -23,7 +25,7 @@ public class RestauranteDTO {
                 .direccion(restaurante.getDireccion())
                 .telefono(restaurante.getTelefono())
                 .email(restaurante.getEmail())
-                .tipoRestaurante(restaurante.getTipoRestaurante().getNombre())
+                .tipoRestaurante(restaurante.getTipoRestaurante())
                 .build();
     }
 

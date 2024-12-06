@@ -43,10 +43,9 @@ public class Restaurante {
     @Column(name = "imagen")
     private byte[] imagen;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo_restaurante_id", nullable = false)
-    private TipoRestaurante tipoRestaurante;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_restaurante", nullable = false)
+    private TipoDeRestaurante tipoRestaurante;
 
     public static Restaurante from(RestauranteRequest restauranteRequest) {
         return Restaurante.builder()
@@ -55,7 +54,7 @@ public class Restaurante {
                 .direccion(restauranteRequest.getDireccion())
                 .telefono(restauranteRequest.getTelefono())
                 .email(restauranteRequest.getEmail())
-                .tipoRestaurante(TipoRestaurante.builder().id(restauranteRequest.getTipoRestauranteId()).build())
+                .tipoRestaurante(restauranteRequest.getTipoRestauranteId())
                 .build();
     }
 }

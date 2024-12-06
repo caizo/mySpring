@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.pmv.myspring.dto.RestauranteDTO;
+import org.pmv.myspring.entities.TipoDeRestaurante;
 import org.pmv.myspring.request.RestauranteRequest;
 import org.pmv.myspring.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ class RestauranteServiceIntegrationTest {
         Assertions.assertEquals("Avenida Siempre Viva 742", result.getDireccion());
         Assertions.assertEquals("0987654321", result.getTelefono());
         Assertions.assertEquals("info@empanadas.com", result.getEmail());
-        Assertions.assertEquals("Mexicana", result.getTipoRestaurante());
+        Assertions.assertEquals(TipoDeRestaurante.ESPANOLA, result.getTipoRestaurante());
 
     }
 
@@ -58,7 +59,7 @@ class RestauranteServiceIntegrationTest {
                 .direccion("Tolombreo de arriba, 15")
                 .telefono("1234567890")
                 .email("pescador@gmail.com")
-                .tipoRestauranteId(1L).build();
+                .tipoRestauranteId(TipoDeRestaurante.ESPANOLA).build();
 
         this.restauranteService.guardarRestaurante(request);
 
@@ -73,7 +74,7 @@ class RestauranteServiceIntegrationTest {
         assertEquals("Tolombreo de arriba, 15", result.getDireccion());
         assertEquals("1234567890", result.getTelefono());
         assertEquals("pescador@gmail.com", result.getEmail());
-        assertEquals("Espanola", result.getTipoRestaurante());
+        assertEquals(TipoDeRestaurante.ESPANOLA, result.getTipoRestaurante());
 
 
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.pmv.myspring.entities.TipoDeRestaurante;
 
 @Data
 @Builder
@@ -15,6 +16,6 @@ public class RestauranteRequest {
     private String direccion;
     private String telefono;
     private String email;
-    private Long tipoRestauranteId;
+    private TipoDeRestaurante tipoRestauranteId;
 
 }

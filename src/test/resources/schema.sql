@@ -11,12 +11,6 @@ CREATE TABLE usuario
 );
 
 DROP TABLE IF EXISTS restaurante;
-DROP TABLE IF EXISTS tipo_restaurante;
-CREATE TABLE tipo_restaurante
-(
-    id     BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
 
 CREATE TABLE restaurante
 (
@@ -26,9 +20,7 @@ CREATE TABLE restaurante
     telefono             VARCHAR(15)  NOT NULL,
     email                VARCHAR(255) NOT NULL,
     imagen               BLOB,
-    tipo_restaurante_id  BIGINT NOT NULL,
-    CONSTRAINT fk_tipo_restaurante
-        FOREIGN KEY (tipo_restaurante_id) REFERENCES tipo_restaurante(id)
+    tipo_restaurante  VARCHAR(100) NOT NULL
 );
 
 

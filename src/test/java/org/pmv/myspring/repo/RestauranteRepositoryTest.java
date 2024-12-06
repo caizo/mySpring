@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.pmv.myspring.dto.RestauranteDTO;
 import org.pmv.myspring.entities.Restaurante;
+import org.pmv.myspring.entities.TipoDeRestaurante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -35,7 +36,7 @@ public class RestauranteRepositoryTest {
         Assertions.assertEquals("Avenida Siempre Viva 742", result.getDireccion());
         Assertions.assertEquals("0987654321", result.getTelefono());
         Assertions.assertEquals("info@empanadas.com", result.getEmail());
-        Assertions.assertEquals("Mexicana", result.getTipoRestaurante());
+        Assertions.assertEquals(TipoDeRestaurante.ESPANOLA, result.getTipoRestaurante());
 
 
     }

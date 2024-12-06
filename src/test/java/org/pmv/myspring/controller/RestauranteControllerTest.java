@@ -3,6 +3,7 @@ package org.pmv.myspring.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
 import org.pmv.myspring.dto.RestauranteDTO;
+import org.pmv.myspring.entities.TipoDeRestaurante;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class RestauranteControllerTest extends BaseControllerTest {
         assertEquals("Calle Falsa 123", result1.getDireccion());
         assertEquals("1234567890", result1.getTelefono());
         assertEquals("contacto@elbuen.com", result1.getEmail());
-        assertEquals("Espanola", result1.getTipoRestaurante());
+        assertEquals(TipoDeRestaurante.CHINO, result1.getTipoRestaurante());
     }
 
 
