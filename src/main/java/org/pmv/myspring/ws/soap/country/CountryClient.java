@@ -9,12 +9,18 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 @RequiredArgsConstructor
 public class CountryClient {
 
+    private final CountryInfoService countryInfoService = new CountryInfoService();
 
     private final WebServiceTemplate webServiceTemplate;
 
     public TCountryInfo getCountryInfo(String countryISOCode) {
-        CountryInfoService service = new CountryInfoService();
-        CountryInfoServiceSoapType port = service.getCountryInfoServiceSoap();
+        CountryInfoServiceSoapType port = countryInfoService.getCountryInfoServiceSoap();
         return port.fullCountryInfo(countryISOCode);
     }
+
+    public String getInfo(String countryName) {
+        return countryInfoService.getCountryInfoServiceSoap().countryName(countryName);
+    }
+
+
 }

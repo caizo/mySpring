@@ -14,9 +14,13 @@ class CountryClientTest {
     private CountryClient countryClient;
 
     @Test
-    void getCountry() {
+    void getCountryInfoTest() {
         TCountryInfo result = countryClient.getCountryInfo("US");
         Assertions.assertNotNull(result);
+
+        String unitedStates = countryClient.getInfo("US");
+        Assertions.assertNotNull(unitedStates);
+        assertEquals("United States", unitedStates);
     }
 
 }
