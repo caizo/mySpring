@@ -2,6 +2,7 @@ package org.pmv.myspring.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.dto.RestauranteDTO;
+import org.pmv.myspring.exception.errors.ImageNotFoundException;
 import org.pmv.myspring.request.RestauranteRequest;
 import org.pmv.myspring.service.RestauranteService;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,14 @@ public class RestauranteController {
     public ResponseEntity<?> crearRestaurante(@RequestBody RestauranteRequest restauranteRequest) {
         restauranteService.guardarRestaurante(restauranteRequest);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{idRestaurante}/imagen")
+    public ResponseEntity<String> obtenerImagen(@PathVariable Long idRestaurante) {
+        try {
+            return ResponseEntity.ok(restauranteService.obtenerImagen(idRestaurante));
+        } catch (ImageNotFoundException e) {
+            return ResponseEntity.noContent().build();
+        }
     }
 }
