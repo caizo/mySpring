@@ -62,7 +62,7 @@ public class Restaurante {
                 .email(restauranteRequest.getEmail())
                 .tipoRestaurante(restauranteRequest.getTipoRestaurante())
                 .descripcion(restauranteRequest.getDescripcion())
-                .imagen(Base64.getDecoder().decode(restauranteRequest.getImagen()))
+                .imagen(restauranteRequest.getImagen() != null ? Base64.getDecoder().decode(restauranteRequest.getImagen()) : null)
                 .build();
     }
 }
