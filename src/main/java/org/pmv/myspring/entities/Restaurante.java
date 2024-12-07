@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.pmv.myspring.request.RestauranteRequest;
 
+import java.util.Base64;
+
 @Getter
 @Setter
 @Builder
@@ -40,6 +42,7 @@ public class Restaurante {
     @Column(name = "email")
     private String email;
 
+    @Lob
     @Column(name = "imagen")
     private byte[] imagen;
 
@@ -59,6 +62,7 @@ public class Restaurante {
                 .email(restauranteRequest.getEmail())
                 .tipoRestaurante(restauranteRequest.getTipoRestaurante())
                 .descripcion(restauranteRequest.getDescripcion())
+                .imagen(Base64.getDecoder().decode(restauranteRequest.getImagen()))
                 .build();
     }
 }
