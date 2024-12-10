@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.pmv.myspring.entities.TipoDeRestaurante;
+import org.pmv.myspring.validations.Base64Image;
 
 @Data
 @Builder
@@ -18,6 +19,7 @@ public class RestauranteRequest {
     private String email;
     private TipoDeRestaurante tipoRestaurante;
     private String descripcion;
+    @Base64Image
     private String imagen;
 
 }

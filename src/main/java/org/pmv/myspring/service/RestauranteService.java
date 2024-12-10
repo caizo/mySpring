@@ -13,9 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +22,15 @@ public class RestauranteService {
     private final RestauranteRepository restauranteRepository;
     private final RestauranteMapper restauranteMapper = new RestauranteMapper();
 
-    public  Page<RestauranteDTO> buscarTodos(int page, int size) {
+    public Page<RestauranteDTO> buscarTodos(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return restauranteRepository.findAll(pageable)
                 .map(RestauranteDTO::from);
     }
 
-public Page<RestauranteDTO> buscarPorNombre(String nombre, int page, int size) {
-    return restauranteRepository.buscarRestaurantes(nombre, PageRequest.of(page, size));
-}
+    public Page<RestauranteDTO> buscarPorNombre(String nombre, int page, int size) {
+        return restauranteRepository.buscarRestaurantes(nombre, PageRequest.of(page, size));
+    }
 
     public void guardarRestaurante(RestauranteRequest restauranteRequest) {
         restauranteRepository.save(Restaurante.from(restauranteRequest));

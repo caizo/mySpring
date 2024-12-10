@@ -51,4 +51,5 @@ public class RestauranteController {
             return ResponseEntity.noContent().build();
         }
     }
+
 }

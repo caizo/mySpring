@@ -18,9 +18,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex) {
         List<String> errors = new ArrayList<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-            errors.add(error.getField() + ": " + error.getDefaultMessage()));
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
+            errors.add(error.getField() + ": " + error.getDefaultMessage());
+        });
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation error", errors);
+
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
@@ -30,13 +32,14 @@ public class GlobalExceptionHandler {
         errors.add(ex.getMessage());
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "User not found", errors);
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGlobalException(Exception ex, WebRequest request) {
-
         ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), List.of(ex.getMessage()));
-
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
+
 }
