@@ -36,7 +36,7 @@ public class AuthService {
 
     public UsuarioDTO registroDeUsuario(RegistroRequest request) {
         Usuario usuario = guardarUsuario(request);
-        //this.emailService.enviarEmailConfirmacion(request, this.jwtUtil.generateToken(usuario)); TODO resolver esto en los tests
+        this.emailService.enviarEmailConfirmacion(request, this.jwtUtil.generateToken(usuario));
 
         return UsuarioDTO.builder()
                 .id(usuario.getId())

@@ -9,6 +9,7 @@ import org.pmv.myspring.request.RestauranteRequest;
 import org.pmv.myspring.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -31,7 +32,10 @@ class RestauranteServiceIntegrationTest {
 
     @Test
     void buscarPorNombreTest() {
-        List<RestauranteDTO> results = this.restauranteService.buscarPorNombre("LAs empanadas");
+        Page<RestauranteDTO> restauranteDTOS = this.restauranteService.buscarPorNombre("LAs empanadas", 0, 5);
+
+        List<RestauranteDTO> results = restauranteDTOS.getContent();
+
         assertNotNull(results);
         assertEquals(1, results.size());
         RestauranteDTO result = results.get(0);
@@ -45,15 +49,15 @@ class RestauranteServiceIntegrationTest {
     }
 
     @Test
-    void buscarTodosLosRestaurantesTest(){
-        List<RestauranteDTO> results = this.restauranteService.buscarTodos();
+    void buscarTodosLosRestaurantesTest() {
+        Page<RestauranteDTO> results = this.restauranteService.buscarTodos(0, 3);
         assertNotNull(results);
-        assertEquals(5, results.size());
-
+        assertEquals(5, results.getTotalElements());
     }
 
+
     @Test
-    void guardarNuevoRestauranteTest(){
+    void guardarNuevoRestauranteTest() {
         RestauranteRequest request = RestauranteRequest.builder()
                 .nombre("El Pescador")
                 .direccion("Tolombreo de arriba, 15")
@@ -63,7 +67,8 @@ class RestauranteServiceIntegrationTest {
 
         this.restauranteService.guardarRestaurante(request);
 
-        List<RestauranteDTO> results = this.restauranteService.buscarPorNombre("El Pescador");
+        Page<RestauranteDTO> restauranteDTOS = this.restauranteService.buscarPorNombre("El Pescador", 0, 5);
+        List<RestauranteDTO> results = restauranteDTOS.getContent();
 
         assertNotNull(results);
         assertEquals(1, results.size());

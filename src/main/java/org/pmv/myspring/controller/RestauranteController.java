@@ -5,10 +5,9 @@ import org.pmv.myspring.dto.RestauranteDTO;
 import org.pmv.myspring.exception.errors.ImageNotFoundException;
 import org.pmv.myspring.request.RestauranteRequest;
 import org.pmv.myspring.service.RestauranteService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,14 +18,16 @@ public class RestauranteController {
     private final RestauranteService restauranteService;
 
     @GetMapping
-    public ResponseEntity<List<RestauranteDTO>> buscarTodos() {
-        List<RestauranteDTO> restaurantes = restauranteService.buscarTodos();
-        return ResponseEntity.ok(restaurantes);
+    public ResponseEntity<Page<RestauranteDTO>> buscarTodos(@RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "5") int size) {
+        return ResponseEntity.ok(restauranteService.buscarTodos(page, size));
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<RestauranteDTO>> buscarRestaurantesPorNombre(@RequestParam String nombre) {
-        List<RestauranteDTO> restaurantes = restauranteService.buscarPorNombre(nombre);
+    public ResponseEntity<Page<RestauranteDTO>> buscarRestaurantesPorNombre(@RequestParam String nombre,
+                                                                            @RequestParam(defaultValue = "0") int page,
+                                                                            @RequestParam(defaultValue = "5") int size) {
+        Page<RestauranteDTO> restaurantes = restauranteService.buscarPorNombre(nombre, page, size);
         return ResponseEntity.ok(restaurantes);
     }
 

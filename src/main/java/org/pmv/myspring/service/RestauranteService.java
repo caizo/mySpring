@@ -7,6 +7,9 @@ import org.pmv.myspring.exception.errors.ImageNotFoundException;
 import org.pmv.myspring.mapper.RestauranteMapper;
 import org.pmv.myspring.repo.RestauranteRepository;
 import org.pmv.myspring.request.RestauranteRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -21,15 +24,15 @@ public class RestauranteService {
     private final RestauranteRepository restauranteRepository;
     private final RestauranteMapper restauranteMapper = new RestauranteMapper();
 
-    public List<RestauranteDTO> buscarTodos() {
-        return restauranteRepository.findAll().stream()
-                .map(RestauranteDTO::from)
-                .collect(Collectors.toList());
+    public  Page<RestauranteDTO> buscarTodos(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return restauranteRepository.findAll(pageable)
+                .map(RestauranteDTO::from);
     }
 
-    public List<RestauranteDTO> buscarPorNombre(String nombre) {
-        return restauranteRepository.buscarRestaurantes(nombre);
-    }
+public Page<RestauranteDTO> buscarPorNombre(String nombre, int page, int size) {
+    return restauranteRepository.buscarRestaurantes(nombre, PageRequest.of(page, size));
+}
 
     public void guardarRestaurante(RestauranteRequest restauranteRequest) {
         restauranteRepository.save(Restaurante.from(restauranteRequest));

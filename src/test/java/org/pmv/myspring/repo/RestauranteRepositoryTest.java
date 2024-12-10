@@ -8,6 +8,7 @@ import org.pmv.myspring.entities.Restaurante;
 import org.pmv.myspring.entities.TipoDeRestaurante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class RestauranteRepositoryTest {
 
     @Test
     public void testBuscarRestaurantesTest() {
-        List<RestauranteDTO> found = restauranteRepository.buscarRestaurantes("empanadas");
+        List<RestauranteDTO> found = restauranteRepository.buscarRestaurantes("empanadas", PageRequest.of(0, 3)).getContent();
 
         Assertions.assertNotNull(found);
         Assertions.assertEquals(1, found.size());
