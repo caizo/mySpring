@@ -1,0 +1,16 @@
+package org.pmv.myspring.gijonevents.application.port.out;
+
+import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
+import org.pmv.myspring.gijonevents.domain.usuario.UsuarioId;
+
+import java.util.Optional;
+
+public interface UsuarioRepository {
+    Usuario save(Usuario usuario);
+
+    Optional<Usuario> findById(UsuarioId id);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+}

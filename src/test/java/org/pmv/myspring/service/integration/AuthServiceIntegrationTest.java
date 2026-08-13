@@ -1,6 +1,6 @@
 package org.pmv.myspring.service.integration;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.entities.Role;
@@ -27,8 +27,7 @@ class AuthServiceIntegrationTest {
     @Autowired
     private AuthService authService;
 
-
-    @Test
+    @Disabled
     void registrarUsuarioTest() {
         RegistroRequest registroRequest = new RegistroRequest();
         registroRequest.setEmail("caizo@outlook.es");

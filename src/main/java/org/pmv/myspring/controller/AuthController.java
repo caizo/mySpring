@@ -30,6 +30,7 @@ public class AuthController {
     }
 
 
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
         this.authService.logout(token);
@@ -40,8 +41,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) throws UsuarioNotFoundException {
 
-        TCountryInfo countryInfo = this.countryClient.getCountryInfo("ES");
-        System.out.println(countryInfo);
         autenticarUsuario(loginRequest);
 
         AuthResponse login = this.authService.login(loginRequest);

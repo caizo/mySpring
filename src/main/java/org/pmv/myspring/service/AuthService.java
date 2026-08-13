@@ -9,8 +9,13 @@ import org.pmv.myspring.repo.UsuarioRepository;
 import org.pmv.myspring.request.LoginRequest;
 import org.pmv.myspring.request.RegistroRequest;
 import org.pmv.myspring.response.AuthResponse;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +26,7 @@ public class AuthService {
     private final TokenService tokenService;
     private final EmailService emailService;
     private final JwtUtil jwtUtil;
+    //private final KafkaTemplate<String, String> kafkaTemplate;
 
     public AuthResponse login(LoginRequest loginRequest) throws UsuarioNotFoundException {
         Usuario usuario = this.usuarioRepository.findByUsername(loginRequest.getUsername())
@@ -34,9 +40,27 @@ public class AuthService {
         this.tokenService.invalidateToken(token);
     }
 
+//    @KafkaListener(topics = "topicUno", groupId = "grupo-unmenu")
+//    public void emailListener(String usuario) {
+//        System.out.println("Enviar email: " + usuario);
+//        this.emailService.enviarEmailConfirmacion(null, this.jwtUtil.generateToken(null));
+//    }
+//
+//    @KafkaListener(topics = "topicDos", groupId = "grupo-unmenu")
+//    public void marketingListener(String usuario) {
+//        System.out.println("Enviar email de marketing: " + usuario);
+//        throw new RuntimeException("Error en la simulación de la operación");
+//
+//    }
+
+
     public UsuarioDTO registroDeUsuario(RegistroRequest request) {
         Usuario usuario = guardarUsuario(request);
-        this.emailService.enviarEmailConfirmacion(request, this.jwtUtil.generateToken(usuario));
+//        CompletableFuture<SendResult<String, String>> topicUno = kafkaTemplate.send("topicUno", "Usuario registrado: " + usuario.getUsername());
+//        CompletableFuture<SendResult<String, String>> topicDos = kafkaTemplate.send("topicDos", "Usuario registrado: " + usuario.getUsername());
+
+
+
 
         return UsuarioDTO.builder()
                 .id(usuario.getId())

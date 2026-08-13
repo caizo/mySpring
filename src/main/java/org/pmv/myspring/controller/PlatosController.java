@@ -18,6 +18,5 @@ public class PlatosController {
     @GetMapping("/restaurante/{restauranteId}")
     public List<PlatoDTO> findPlatosByRestaurante(@PathVariable Long restauranteId) {
         return platosService.findPlatosByRestaurante(restauranteId);
-
     }
 }
