@@ -1,10 +1,10 @@
-package org.pmv.myspring.gijonevents.infra.adapter.out.persistence.mapper;
+package org.pmv.myspring.gijonevents.infra.out.persistence.mapper;
 
 
 import org.pmv.myspring.gijonevents.domain.Direccion;
 import org.pmv.myspring.gijonevents.domain.empresa.Empresa;
-import org.pmv.myspring.gijonevents.infra.adapter.out.persistence.entity.DireccionEmbeddable;
-import org.pmv.myspring.gijonevents.infra.adapter.out.persistence.entity.EmpresaEntity;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.DireccionEmbeddable;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.EmpresaEntity;
 import org.springframework.stereotype.Component;
 
 @Component

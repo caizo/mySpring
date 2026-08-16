@@ -3,7 +3,7 @@ package org.pmv.myspring.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.pmv.myspring.entities.Usuario;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -37,13 +37,13 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(Usuario username) {
+    public String generateToken(UsuarioEntity username) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", username.getRole());
         return createToken(claims, username);
     }
 
-    private String createToken(Map<String, Object> claims, Usuario usuario) {
+    private String createToken(Map<String, Object> claims, UsuarioEntity usuario) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(usuario.getUsername())

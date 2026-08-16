@@ -2,7 +2,7 @@ package org.pmv.myspring.validations;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.pmv.myspring.entities.Role;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.Role;
 
 public class TipoUsuarioValidator implements ConstraintValidator<ValidarTipoUsuario, Role> {
 

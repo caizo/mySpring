@@ -1,7 +1,6 @@
 package org.pmv.myspring.config;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.repo.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationConfig {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -2,7 +2,7 @@ package org.pmv.myspring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.dto.UsuarioDTO;
-import org.pmv.myspring.entities.Usuario;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.repo.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +19,7 @@ public class UsuarioService {
 
 
     public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuarioGuardado = usuarioRepository.save(Usuario.from(usuarioDTO, passwordEncoder.encode(usuarioDTO.getPassword())));
+        UsuarioEntity usuarioGuardado = usuarioRepository.save(UsuarioEntity.from(usuarioDTO, passwordEncoder.encode(usuarioDTO.getPassword())));
         return UsuarioDTO.from(usuarioGuardado);
 
     }
@@ -33,19 +33,13 @@ public class UsuarioService {
 
     public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
         return usuarioRepository.findById(usuarioDTO.getId())
-                .map(usuario -> usuarioRepository.save(Usuario.from(usuarioDTO)))
+                .map(usuario -> usuarioRepository.save(UsuarioEntity.from(usuarioDTO)))
                 .map(UsuarioDTO::from)
                 .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
     }
 
     public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id);
-    }
-
-    public List<UsuarioDTO> buscarClientes() throws UsuarioNotFoundException {
-        return usuarioRepository.findClientes()
-                .orElseThrow(() -> new UsuarioNotFoundException("No se encontraron usuarios"));
-
     }
 
 

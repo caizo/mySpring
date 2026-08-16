@@ -1,30 +1,24 @@
--- src/main/resources/sql/schema.sql
-DROP TABLE IF EXISTS usuario;
-CREATE TABLE usuario
+CREATE DATABASE IF NOT EXISTS myspring;
+
+USE myspring;
+
+CREATE TABLE usuarios
 (
-    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email    VARCHAR(255) NOT NULL unique,
-    telefono VARCHAR(15)  NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role     VARCHAR(25)  NOT NULL
+    id                 BIGINT    NOT NULL AUTO_INCREMENT,
+    username           VARCHAR(255),
+    email              VARCHAR(255),
+    password           VARCHAR(255),
+    role               VARCHAR(255),
+    activo             BOOLEAN   NOT NULL,
+    fecha_creacion     TIMESTAMP NOT NULL,
+    fecha_modificacion TIMESTAMP NOT NULL,
+
+    CONSTRAINT pk_usuarios
+        PRIMARY KEY (id),
+
+    CONSTRAINT uk_usuarios_email
+        UNIQUE (email)
 );
-
-DROP TABLE IF EXISTS restaurante;
-
-CREATE TABLE restaurante
-(
-    id                   BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nombre               VARCHAR(100) NOT NULL,
-    direccion            VARCHAR(200) NOT NULL,
-    telefono             VARCHAR(15)  NOT NULL,
-    email                VARCHAR(255) NOT NULL,
-    imagen               BLOB,
-    tipo_restaurante     VARCHAR(100) NOT NULL,
-    descripcion          VARCHAR(255) NULL
-);
-
-
 
 
 

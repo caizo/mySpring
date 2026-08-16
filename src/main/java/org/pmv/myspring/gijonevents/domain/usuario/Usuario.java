@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.pmv.myspring.gijonevents.domain.enums.TipoUsuario;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.Role;
 
 import java.time.Instant;
 
@@ -18,24 +18,13 @@ public class Usuario {
     private String nombre;
     private String email;
     private String password;
-    private TipoUsuario tipo;
+    private Role tipo;
     private boolean activo;
     private Instant fechaCreacion;
 
-    public static Usuario create(String username, String email, String password, TipoUsuario tipo) {
-        return new Usuario(UsuarioId.generate(), username, email, password, tipo, true, Instant.now()
+    public static Usuario create(String username, String email, String password, Role role) {
+        return new Usuario(UsuarioId.generate(), username, email, password, role, true, Instant.now()
         );
     }
 
-    public static Usuario reconstitute(
-            UsuarioId id,
-            String username,
-            String email,
-            String password,
-            TipoUsuario tipo,
-            boolean activo,
-            Instant fechaCreacion
-    ) {
-        return new Usuario(id, username, email, password, tipo, activo, fechaCreacion);
-    }
 }

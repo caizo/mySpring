@@ -56,15 +56,6 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioDTOS);
     }
 
-    @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> buscarClientes() throws UsuarioNotFoundException {
-        List<UsuarioDTO> clientes = usuarioService.buscarClientes();
-        if (clientes.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(clientes);
-    }
-
     @PutMapping()
     public ResponseEntity<UsuarioDTO> actualizarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
         return ResponseEntity.ok(usuarioService.actualizarUsuario(usuarioDTO));

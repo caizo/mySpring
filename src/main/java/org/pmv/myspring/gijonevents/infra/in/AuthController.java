@@ -1,4 +1,4 @@
-package org.pmv.myspring.controller;
+package org.pmv.myspring.gijonevents.infra.in;
 
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
@@ -6,8 +6,6 @@ import org.pmv.myspring.request.LoginRequest;
 import org.pmv.myspring.request.RegistroRequest;
 import org.pmv.myspring.response.AuthResponse;
 import org.pmv.myspring.service.AuthService;
-import org.pmv.myspring.ws.soap.country.CountryClient;
-import org.pmv.myspring.ws.soap.country.TCountryInfo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,14 +19,12 @@ public class AuthController {
 
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
-    private final CountryClient countryClient;
 
     @PostMapping("/registro")
     public ResponseEntity<?> registroDeUsuario(@RequestBody RegistroRequest registroRequest) {
         this.authService.registroDeUsuario(registroRequest);
         return ResponseEntity.ok().build();
     }
-
 
 
     @PostMapping("/logout")

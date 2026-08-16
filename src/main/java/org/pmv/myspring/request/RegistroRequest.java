@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.pmv.myspring.entities.Role;
+import org.pmv.myspring.gijonevents.infra.out.persistence.entity.Role;
 import org.pmv.myspring.validations.ValidarTipoUsuario;
 
 @Data
@@ -17,9 +17,6 @@ public class RegistroRequest {
 
     @NotBlank(message = "El email es requerido")
     private String email;
-
-    @NotBlank(message = "El telefono es requerido")
-    private String telefono;
 
     @NotBlank(message = "La contraseña es requerida")
     private String password;

@@ -1,4 +1,4 @@
-package org.pmv.myspring.gijonevents.infra.adapter.out.persistence.entity;
+package org.pmv.myspring.gijonevents.infra.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
