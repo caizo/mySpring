@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.dto.UsuarioDTO;
+import org.pmv.myspring.gijonevents.infra.in.rest.dto.UsuarioDTO;
 import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
-import org.pmv.myspring.service.UsuarioService;
+import org.pmv.myspring.gijonevents.application.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

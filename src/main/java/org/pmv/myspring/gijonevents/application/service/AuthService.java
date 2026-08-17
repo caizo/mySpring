@@ -18,8 +18,6 @@ import org.pmv.myspring.gijonevents.application.port.out.persistence.UserPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;
 import org.pmv.myspring.gijonevents.infra.out.security.jwt.JwtUtil;
-import org.pmv.myspring.service.EmailService;
-import org.pmv.myspring.service.TokenService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -38,13 +36,6 @@ public class AuthService implements RegisterUserUseCase, LoginUserUseCase {
     private final UserResultMapper mapper;
     //private final KafkaTemplate<String, String> kafkaTemplate;
 
-//    public LoginUserResult login(LoginRequestDto loginRequest) throws UsuarioNotFoundException {
-//        UsuarioEntity usuario = this.usuarioRepository.findByUsername(loginRequest.getUsername())
-//                .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado"));
-//
-//        return LoginUserResult.builder().jwt(this.jwtUtil.generateToken(usuario)).build();
-//
-//    }
 
     public void logout(String token) {
         this.tokenService.invalidateToken(token);

@@ -2,7 +2,7 @@ package org.pmv.myspring.gijonevents.infra.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pmv.myspring.dto.UsuarioDTO;
+import org.pmv.myspring.gijonevents.infra.in.rest.dto.UsuarioDTO;
 import org.pmv.myspring.gijonevents.domain.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

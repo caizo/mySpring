@@ -1,4 +1,4 @@
-package org.pmv.myspring.dto;
+package org.pmv.myspring.gijonevents.infra.in.rest.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

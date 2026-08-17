@@ -1,4 +1,4 @@
-package org.pmv.myspring.service;
+package org.pmv.myspring.gijonevents.application.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

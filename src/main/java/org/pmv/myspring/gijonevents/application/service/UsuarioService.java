@@ -1,7 +1,7 @@
-package org.pmv.myspring.service;
+package org.pmv.myspring.gijonevents.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.dto.UsuarioDTO;
+import org.pmv.myspring.gijonevents.infra.in.rest.dto.UsuarioDTO;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
 import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
 import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;

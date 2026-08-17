@@ -6,15 +6,14 @@ import org.pmv.myspring.gijonevents.application.port.in.LoginUserUseCase;
 import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
 import org.pmv.myspring.gijonevents.application.port.in.command.LoginUserCommand;
 import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
+import org.pmv.myspring.gijonevents.application.port.in.result.LoginUserResult;
 import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResult;
+import org.pmv.myspring.gijonevents.application.service.AuthService;
+import org.pmv.myspring.gijonevents.infra.in.rest.dto.LoginRequestDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserRequestDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserResponseDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.mapper.UserWebMapper;
-import org.pmv.myspring.gijonevents.infra.in.rest.dto.LoginRequestDto;
-import org.pmv.myspring.gijonevents.application.port.in.result.LoginUserResult;
-import org.pmv.myspring.gijonevents.application.service.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -46,7 +45,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginUserResult> login(@RequestBody LoginRequestDto requestDto) throws UsuarioNotFoundException {
-        LoginUserResult login = this.loginUserUseCase.login(new LoginUserCommand(requestDto.getUsername(), requestDto.getPassword()));
+        LoginUserResult login = this.loginUserUseCase.login(
+                new LoginUserCommand(requestDto.getUsername(), requestDto.getPassword())
+        );
         return ResponseEntity.ok(login);
     }
 
