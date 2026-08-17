@@ -1,4 +1,4 @@
-package org.pmv.myspring.controller;
+package org.pmv.myspring.gijonevents.infra.in.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,7 +1,8 @@
 package org.pmv.myspring.gijonevents.infra.out.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.gijonevents.application.port.out.UserPort;
+import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.port.out.persistence.UserPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.pmv.myspring.gijonevents.domain.usuario.UsuarioId;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
@@ -42,5 +43,11 @@ public class UserPersistenceAdapter implements UserPort {
     @Override
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
+    }
+
+    @Override
+    public Usuario findByUsername(String username) {
+        UsuarioEntity entity = repository.findByUsername(username).orElseThrow(UsuarioNotFoundException::new);
+        return this.mapper.toDomain(entity);
     }
 }

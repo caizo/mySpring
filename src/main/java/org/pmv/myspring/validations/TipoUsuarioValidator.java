@@ -12,6 +12,6 @@ public class TipoUsuarioValidator implements ConstraintValidator<ValidarTipoUsua
 
     @Override
     public boolean isValid(Role value, ConstraintValidatorContext context) {
-        return value != null && (value.equals(Role.CLIENTE) || value.equals(Role.RESTAURANTE));
+        return value != null && (value.equals(Role.PERSONA) || value.equals(Role.EMPRESA));
     }
 }

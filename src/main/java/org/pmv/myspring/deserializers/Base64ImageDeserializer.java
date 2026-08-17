@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Base64ImageDeserializer extends JsonDeserializer<String> {
 
     @Override
-    public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         String base64Image = p.getText();
         if (base64Image != null && base64Image.contains(",")) {
             return base64Image.split(",")[1];

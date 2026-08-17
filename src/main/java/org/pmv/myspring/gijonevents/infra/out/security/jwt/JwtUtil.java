@@ -1,9 +1,10 @@
-package org.pmv.myspring.jwt;
+package org.pmv.myspring.gijonevents.infra.out.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
+import org.pmv.myspring.gijonevents.application.port.out.TokenGeneratorPort;
+import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtUtil {
+public class JwtUtil implements TokenGeneratorPort {
 
     private String secret = "secret";
 
@@ -37,13 +38,13 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UsuarioEntity username) {
+    public String generateToken(Usuario username) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", username.getRole());
         return createToken(claims, username);
     }
 
-    private String createToken(Map<String, Object> claims, UsuarioEntity usuario) {
+    private String createToken(Map<String, Object> claims, Usuario usuario) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(usuario.getUsername())

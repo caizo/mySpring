@@ -1,4 +1,4 @@
-package org.pmv.myspring.jwt;
+package org.pmv.myspring.gijonevents.infra.out.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

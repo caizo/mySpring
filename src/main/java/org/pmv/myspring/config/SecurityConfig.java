@@ -1,7 +1,7 @@
 package org.pmv.myspring.config;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.jwt.JwtRequestFilter;
+import org.pmv.myspring.gijonevents.infra.out.security.jwt.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

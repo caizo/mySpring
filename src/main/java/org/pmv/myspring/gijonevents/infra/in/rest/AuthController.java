@@ -1,19 +1,20 @@
-package org.pmv.myspring.gijonevents.infra.in;
+package org.pmv.myspring.gijonevents.infra.in.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.port.in.LoginUserUseCase;
 import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
+import org.pmv.myspring.gijonevents.application.port.in.command.LoginUserCommand;
 import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
 import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResult;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserRequestDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserResponseDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.mapper.UserWebMapper;
-import org.pmv.myspring.request.LoginRequest;
-import org.pmv.myspring.response.AuthResponse;
+import org.pmv.myspring.gijonevents.infra.in.rest.dto.LoginRequestDto;
+import org.pmv.myspring.gijonevents.application.port.in.result.LoginUserResult;
 import org.pmv.myspring.gijonevents.application.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,14 +24,14 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final AuthenticationManager authenticationManager;
     private final UserWebMapper mapper;
-    private final RegisterUserUseCase useCase;
+    private final RegisterUserUseCase registerUserUseCase;
+    private final LoginUserUseCase loginUserUseCase;
 
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponseDto> register(@RequestBody RegisterUserRequestDto requestDto) {
         RegisterUserCommand command = this.mapper.mapCommand(requestDto);
-        RegisterUserResult result = this.useCase.register(command);
+        RegisterUserResult result = this.registerUserUseCase.register(command);
         RegisterUserResponseDto responseDto = this.mapper.toResponse(result);
         return ResponseEntity.ok(responseDto);
     }
@@ -44,14 +45,8 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) throws UsuarioNotFoundException {
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                );
-        this.authenticationManager.authenticate(authentication);
-        AuthResponse login = this.authService.login(loginRequest);
+    public ResponseEntity<LoginUserResult> login(@RequestBody LoginRequestDto requestDto) throws UsuarioNotFoundException {
+        LoginUserResult login = this.loginUserUseCase.login(new LoginUserCommand(requestDto.getUsername(), requestDto.getPassword()));
         return ResponseEntity.ok(login);
     }
 
