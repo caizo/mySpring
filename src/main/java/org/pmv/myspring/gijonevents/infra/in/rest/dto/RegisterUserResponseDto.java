@@ -1,4 +1,4 @@
-package org.pmv.myspring.gijonevents.domain.usuario;
+package org.pmv.myspring.gijonevents.infra.in.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,19 +7,18 @@ import lombok.NoArgsConstructor;
 import org.pmv.myspring.gijonevents.domain.enums.Role;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
+
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
-
+@NoArgsConstructor
+public class RegisterUserResponseDto {
     private String username;
     private String email;
-    private String password;
     private Role role;
     private boolean activo;
-    private Instant fechaCreacion;
-    private Instant fechaModificacion;
-
+    private OffsetDateTime fechaCreacion;
+    private OffsetDateTime fechaModificacion;
 }

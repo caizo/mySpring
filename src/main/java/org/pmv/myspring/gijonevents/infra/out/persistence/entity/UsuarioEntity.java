@@ -3,6 +3,7 @@ package org.pmv.myspring.gijonevents.infra.out.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.pmv.myspring.dto.UsuarioDTO;
+import org.pmv.myspring.gijonevents.domain.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,15 +44,6 @@ public class UsuarioEntity implements UserDetails {
     @Column(nullable = false)
     private Instant fechaModificacion;
 
-
-
-    public static UsuarioEntity from(UsuarioDTO usuarioDTO, String encodedPassword) {
-        return UsuarioEntity.builder()
-                .email(usuarioDTO.getEmail())
-                .username(usuarioDTO.getUsername())
-                .role(usuarioDTO.getRole())
-                .password(encodedPassword).build();
-    }
 
     public static UsuarioEntity from(UsuarioDTO usuarioDTO) {
         return UsuarioEntity.builder()

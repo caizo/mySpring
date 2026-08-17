@@ -1,14 +1,20 @@
-package org.pmv.myspring.service;
+package org.pmv.myspring.gijonevents.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.dto.UsuarioDTO;
+import org.pmv.myspring.gijonevents.application.mapper.UserResultMapper;
+import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
+import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResult;
+import org.pmv.myspring.gijonevents.application.port.out.UserPort;
+import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
 import org.pmv.myspring.jwt.JwtUtil;
-import org.pmv.myspring.repo.UsuarioRepository;
+import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;
 import org.pmv.myspring.request.LoginRequest;
-import org.pmv.myspring.request.RegistroRequest;
+import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
 import org.pmv.myspring.response.AuthResponse;
+import org.pmv.myspring.service.EmailService;
+import org.pmv.myspring.service.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +22,15 @@ import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthService implements RegisterUserUseCase {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepositoryJpa usuarioRepository;
+    private final UserPort userPort;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
     private final EmailService emailService;
     private final JwtUtil jwtUtil;
+    private final UserResultMapper mapper;
     //private final KafkaTemplate<String, String> kafkaTemplate;
 
     public AuthResponse login(LoginRequest loginRequest) throws UsuarioNotFoundException {
@@ -51,33 +59,25 @@ public class AuthService {
 //    }
 
 
-    public UsuarioDTO registroDeUsuario(RegistroRequest request) {
-        UsuarioEntity usuario = guardarUsuario(request);
-//        CompletableFuture<SendResult<String, String>> topicUno = kafkaTemplate.send("topicUno", "Usuario registrado: " + usuario.getUsername());
-//        CompletableFuture<SendResult<String, String>> topicDos = kafkaTemplate.send("topicDos", "Usuario registrado: " + usuario.getUsername());
 
-
-        return UsuarioDTO.builder()
-                .id(usuario.getId())
-                .email(usuario.getEmail())
-                .username(usuario.getUsername())
-                .role(usuario.getRole())
-                .build();
-    }
-
-    private UsuarioEntity guardarUsuario(RegistroRequest registroRequest) {
-        UsuarioEntity usuario = UsuarioEntity.builder()
-                .email(registroRequest.getEmail())
-                .username(registroRequest.getUsername())
-                .role(registroRequest.getRole())
+    @Override
+    public RegisterUserResult register(RegisterUserCommand command) {
+        Usuario usuario = Usuario.builder()
+                .email(command.getEmail())
+                .username(command.getUsername())
+                .role(command.getRole())
                 .fechaCreacion(Instant.now())
                 .fechaModificacion(Instant.now())
                 .activo(Boolean.TRUE)
-                .password(passwordEncoder.encode(registroRequest.getPassword()))
+                .password(passwordEncoder.encode(command.getPassword()))
                 .build();
+        Usuario save = this.userPort.save(usuario);
 
-        this.usuarioRepository.save(usuario);
-        return usuario;
+        RegisterUserResult result = this.mapper.toResult(save);
+
+
+
+        return result;
 
     }
 }

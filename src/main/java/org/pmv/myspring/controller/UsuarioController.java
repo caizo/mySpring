@@ -22,11 +22,11 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @PostMapping
-    public ResponseEntity<UsuarioDTO> crearUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-        UsuarioDTO savedUsuario = usuarioService.guardarUsuario(usuarioDTO);
-        return ResponseEntity.ok(savedUsuario);
-    }
+//    @PostMapping
+//    public ResponseEntity<UsuarioDTO> crearUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+//        UsuarioDTO savedUsuario = usuarioService.guardarUsuario(usuarioDTO);
+//        return ResponseEntity.ok(savedUsuario);
+//    }
 
 
     @Operation(summary = "Obtener un usuario por ID")

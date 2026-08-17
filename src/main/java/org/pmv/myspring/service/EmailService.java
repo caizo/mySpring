@@ -3,8 +3,7 @@ package org.pmv.myspring.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.request.RegistroRequest;
-import org.springframework.mail.SimpleMailMessage;
+import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class EmailService {
         }
     }
 
-    public void enviarEmailConfirmacion(RegistroRequest registroRequest, String jwt) {
+    public void enviarEmailConfirmacion(RegisterUserCommand registroRequest, String jwt) {
         String subject = "Confirmación de registro de usuario";
         String body = "<html><body>"
                 + "<h1>Usuario registrado</h1>"

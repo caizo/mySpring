@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
-import org.pmv.myspring.repo.UsuarioRepository;
+import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepositoryJpa usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
 
-    public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
-        UsuarioEntity usuarioGuardado = usuarioRepository.save(UsuarioEntity.from(usuarioDTO, passwordEncoder.encode(usuarioDTO.getPassword())));
-        return UsuarioDTO.from(usuarioGuardado);
-
-    }
+//    public UsuarioDTO guardarUsuario(UsuarioDTO usuarioDTO) {
+//        UsuarioEntity usuarioGuardado = usuarioRepository.save(UsuarioEntity.from(usuarioDTO, passwordEncoder.encode(usuarioDTO.getPassword())));
+//        return UsuarioDTO.from(usuarioGuardado);
+//
+//    }
 
     public UsuarioDTO buscarUsuarioPorId(Long id) throws UsuarioNotFoundException {
         return usuarioRepository.findById(id)

@@ -1,4 +1,4 @@
-package org.pmv.myspring.repo;
+package org.pmv.myspring.gijonevents.infra.out.persistence.repository;
 
 import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
+public interface UsuarioRepositoryJpa extends JpaRepository<UsuarioEntity, Long> {
 
     Optional<UsuarioEntity> findByUsername(String nombre);
 

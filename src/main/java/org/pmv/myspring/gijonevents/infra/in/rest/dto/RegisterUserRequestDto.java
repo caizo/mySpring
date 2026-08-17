@@ -1,16 +1,16 @@
-package org.pmv.myspring.request;
+package org.pmv.myspring.gijonevents.infra.in.rest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.pmv.myspring.gijonevents.infra.out.persistence.entity.Role;
+import org.pmv.myspring.gijonevents.domain.enums.Role;
 import org.pmv.myspring.validations.ValidarTipoUsuario;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistroRequest {
+public class RegisterUserRequestDto {
 
     @NotBlank(message = "El nombre de usuario es requerido")
     private String username;

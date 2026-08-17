@@ -5,7 +5,7 @@ import org.pmv.myspring.gijonevents.domain.usuario.UsuarioId;
 
 import java.util.Optional;
 
-public interface UsuarioRepository {
+public interface UserPort {
     Usuario save(Usuario usuario);
 
     Optional<Usuario> findById(UsuarioId id);

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.pmv.myspring.gijonevents.infra.out.persistence.entity.Role;
+import org.pmv.myspring.gijonevents.domain.enums.Role;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
 import org.pmv.myspring.validations.ValidarTipoUsuario;
 
@@ -27,14 +27,6 @@ public class UsuarioDTO {
     @ValidarTipoUsuario
     private Role role;
 
-    private String password;
-
-    public UsuarioDTO(Long id, String username, String email, Role role) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.role = role;
-    }
 
     public static UsuarioDTO from(UsuarioEntity usuarioGuardado) {
         return UsuarioDTO.builder()

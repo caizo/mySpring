@@ -1,4 +1,4 @@
-package org.pmv.myspring.gijonevents.domain.usuario;
+package org.pmv.myspring.gijonevents.application.port.in.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,18 +8,16 @@ import org.pmv.myspring.gijonevents.domain.enums.Role;
 
 import java.time.Instant;
 
+
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
-
+@NoArgsConstructor
+public class RegisterUserResult {
     private String username;
     private String email;
-    private String password;
     private Role role;
     private boolean activo;
     private Instant fechaCreacion;
     private Instant fechaModificacion;
-
 }

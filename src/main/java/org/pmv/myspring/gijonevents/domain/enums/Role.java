@@ -1,4 +1,4 @@
-package org.pmv.myspring.gijonevents.infra.out.persistence.entity;
+package org.pmv.myspring.gijonevents.domain.enums;
 
 public enum Role {
     RESTAURANTE,
