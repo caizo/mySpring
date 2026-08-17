@@ -3,7 +3,7 @@ package org.pmv.myspring.service;
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.dto.UsuarioDTO;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
-import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
 import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

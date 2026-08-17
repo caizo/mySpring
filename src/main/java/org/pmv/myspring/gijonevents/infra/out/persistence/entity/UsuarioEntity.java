@@ -13,7 +13,20 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(schema = "myspring", name = "usuarios")
+@Table(
+        schema = "myspring",
+        name = "usuarios",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_usuarios_email",
+                        columnNames = "email"
+                ),
+                @UniqueConstraint(
+                        name = "uk_usuarios_username",
+                        columnNames = "username"
+                )
+        }
+)
 @Getter
 @Setter
 @Builder
@@ -25,13 +38,16 @@ public class UsuarioEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 

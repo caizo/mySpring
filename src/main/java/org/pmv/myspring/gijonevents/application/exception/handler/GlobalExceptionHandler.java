@@ -1,8 +1,8 @@
-package org.pmv.myspring.exception.handler;
+package org.pmv.myspring.gijonevents.application.exception.handler;
 
-import org.apache.kafka.shaded.com.google.protobuf.Api;
-import org.pmv.myspring.exception.errors.ApiError;
-import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.exception.UsernameAlreadyExistsException;
+import org.pmv.myspring.gijonevents.application.exception.error.ApiError;
+import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
 import org.pmv.myspring.gijonevents.application.exception.EmailAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +37,15 @@ public class GlobalExceptionHandler {
 
     }
 
-
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleEmailAlreadyExists(EmailAlreadyExistsException exception) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, "Email duplicado", List.of(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException exception) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, "Nombre de usuario duplicado", List.of(exception.getMessage()));
         return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
     }
 

@@ -1,4 +1,4 @@
-package org.pmv.myspring.exception.errors;
+package org.pmv.myspring.gijonevents.application.exception.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

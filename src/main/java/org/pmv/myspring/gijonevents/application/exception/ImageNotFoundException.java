@@ -1,4 +1,4 @@
-package org.pmv.myspring.exception.errors;
+package org.pmv.myspring.gijonevents.application.exception;
 
 public class ImageNotFoundException extends Exception {
     public ImageNotFoundException(String message) {

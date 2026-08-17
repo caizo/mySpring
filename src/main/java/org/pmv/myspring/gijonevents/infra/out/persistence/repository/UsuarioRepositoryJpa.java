@@ -19,4 +19,6 @@ public interface UsuarioRepositoryJpa extends JpaRepository<UsuarioEntity, Long>
     Optional<List<UsuarioDTO>> findClientesByUsername(String username);
 
     boolean existsByEmail(String email);
+
+    boolean existsByUsername(String email);
 }

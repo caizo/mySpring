@@ -1,7 +1,8 @@
 package org.pmv.myspring.gijonevents.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.exception.UsernameAlreadyExistsException;
+import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
 import org.pmv.myspring.gijonevents.application.exception.EmailAlreadyExistsException;
 import org.pmv.myspring.gijonevents.application.mapper.UserResultMapper;
 import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
@@ -62,6 +63,10 @@ public class AuthService implements RegisterUserUseCase {
 
     @Override
     public RegisterUserResult register(RegisterUserCommand command) {
+
+        if(this.userPort.existsByUsername(command.getUsername())){
+            throw new UsernameAlreadyExistsException(command.getUsername());
+        }
 
         if (this.userPort.existsByEmail(command.getEmail())) {
             throw new EmailAlreadyExistsException(command.getEmail());

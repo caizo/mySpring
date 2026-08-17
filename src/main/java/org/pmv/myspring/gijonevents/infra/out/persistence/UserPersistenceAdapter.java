@@ -36,7 +36,7 @@ public class UserPersistenceAdapter implements UserPort {
 
     @Override
     public boolean existsByUsername(String username) {
-        return false;
+        return repository.existsByUsername(username);
     }
 
     @Override
