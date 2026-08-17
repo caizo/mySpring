@@ -18,4 +18,5 @@ public interface UsuarioRepositoryJpa extends JpaRepository<UsuarioEntity, Long>
             "and u.role = 'CLIENTE'")
     Optional<List<UsuarioDTO>> findClientesByUsername(String username);
 
+    boolean existsByEmail(String email);
 }

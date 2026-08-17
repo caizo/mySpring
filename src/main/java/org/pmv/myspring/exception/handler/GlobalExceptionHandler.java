@@ -1,7 +1,9 @@
 package org.pmv.myspring.exception.handler;
 
+import org.apache.kafka.shaded.com.google.protobuf.Api;
 import org.pmv.myspring.exception.errors.ApiError;
 import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.exception.EmailAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,6 +35,13 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "User not found", errors);
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
 
+    }
+
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleEmailAlreadyExists(EmailAlreadyExistsException exception) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT, "Email duplicado", List.of(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,17 +1,18 @@
 package org.pmv.myspring.gijonevents.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.application.exception.EmailAlreadyExistsException;
 import org.pmv.myspring.gijonevents.application.mapper.UserResultMapper;
 import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
+import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
 import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResult;
 import org.pmv.myspring.gijonevents.application.port.out.UserPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
-import org.pmv.myspring.exception.errors.UsuarioNotFoundException;
-import org.pmv.myspring.jwt.JwtUtil;
 import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;
+import org.pmv.myspring.jwt.JwtUtil;
 import org.pmv.myspring.request.LoginRequest;
-import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
 import org.pmv.myspring.response.AuthResponse;
 import org.pmv.myspring.service.EmailService;
 import org.pmv.myspring.service.TokenService;
@@ -59,9 +60,13 @@ public class AuthService implements RegisterUserUseCase {
 //    }
 
 
-
     @Override
     public RegisterUserResult register(RegisterUserCommand command) {
+
+        if (this.userPort.existsByEmail(command.getEmail())) {
+            throw new EmailAlreadyExistsException(command.getEmail());
+        }
+
         Usuario usuario = Usuario.builder()
                 .email(command.getEmail())
                 .username(command.getUsername())
@@ -73,11 +78,7 @@ public class AuthService implements RegisterUserUseCase {
                 .build();
         Usuario save = this.userPort.save(usuario);
 
-        RegisterUserResult result = this.mapper.toResult(save);
-
-
-
-        return result;
+        return this.mapper.toResult(save);
 
     }
 }
