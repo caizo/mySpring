@@ -1,4 +1,4 @@
-package org.pmv.myspring.ws.soap.country;
+package org.pmv.myspring.gijonevents.infra.out.webservice.soap.country;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

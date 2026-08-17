@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.pmv.myspring.gijonevents.domain.enums.Role;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
-import org.pmv.myspring.validations.ValidarTipoUsuario;
+import org.pmv.myspring.gijonevents.infra.in.rest.validation.ValidarTipoUsuario;
 
 @Data
 @Builder

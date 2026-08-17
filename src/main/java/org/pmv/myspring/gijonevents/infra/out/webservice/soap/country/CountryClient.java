@@ -1,6 +1,9 @@
-package org.pmv.myspring.ws.soap.country;
+package org.pmv.myspring.gijonevents.infra.out.webservice.soap.country;
 
 import lombok.RequiredArgsConstructor;
+import org.pmv.myspring.ws.soap.country.CountryInfoService;
+import org.pmv.myspring.ws.soap.country.CountryInfoServiceSoapType;
+import org.pmv.myspring.ws.soap.country.TCountryInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;
 

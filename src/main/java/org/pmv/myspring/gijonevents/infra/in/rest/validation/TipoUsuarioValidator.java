@@ -1,4 +1,4 @@
-package org.pmv.myspring.validations;
+package org.pmv.myspring.gijonevents.infra.in.rest.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

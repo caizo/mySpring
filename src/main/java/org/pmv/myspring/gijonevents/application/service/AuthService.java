@@ -37,9 +37,9 @@ public class AuthService implements RegisterUserUseCase, LoginUserUseCase {
     //private final KafkaTemplate<String, String> kafkaTemplate;
 
 
-    public void logout(String token) {
-        this.tokenService.invalidateToken(token);
-    }
+//    public void logout(String token) {
+//        this.tokenService.invalidateToken(token);
+//    }
 
 //    @KafkaListener(topics = "topicUno", groupId = "grupo-unmenu")
 //    public void emailListener(String usuario) {
@@ -101,4 +101,5 @@ public class AuthService implements RegisterUserUseCase, LoginUserUseCase {
                 .role(usuario.getRole())
                 .build();
     }
+
 }

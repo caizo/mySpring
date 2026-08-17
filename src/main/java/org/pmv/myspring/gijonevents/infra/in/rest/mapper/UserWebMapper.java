@@ -4,7 +4,9 @@ package org.pmv.myspring.gijonevents.infra.in.rest.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.pmv.myspring.gijonevents.application.port.in.command.RegisterUserCommand;
+import org.pmv.myspring.gijonevents.application.port.in.result.LoginUserResult;
 import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResult;
+import org.pmv.myspring.gijonevents.infra.in.rest.dto.LoginUserResponseDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserRequestDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserResponseDto;
 
@@ -35,4 +37,6 @@ public interface UserWebMapper {
         """
     )
     RegisterUserResponseDto toResponse(RegisterUserResult result);
+
+    LoginUserResponseDto toLoginResponseDto(LoginUserResult login);
 }
