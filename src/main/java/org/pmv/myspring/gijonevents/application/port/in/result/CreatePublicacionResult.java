@@ -1,20 +1,17 @@
-package org.pmv.myspring.gijonevents.domain.evento;
+package org.pmv.myspring.gijonevents.application.port.in.result;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.pmv.myspring.gijonevents.domain.enums.EstadoPublicacion;
 import org.pmv.myspring.gijonevents.domain.enums.TipoPublicacion;
 
 import java.time.Instant;
 import java.util.List;
 
-@Data
+@Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Publicacion {
+public class CreatePublicacionResult {
+
     private Long id;
     private String titulo;
     private String descripcion;

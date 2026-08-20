@@ -5,6 +5,6 @@ import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResul
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 
 @Mapper(componentModel = "spring")
-public interface UserResultMapper {
+public interface UsuarioApplicationMapper {
     RegisterUserResult toResult(Usuario save);
 }

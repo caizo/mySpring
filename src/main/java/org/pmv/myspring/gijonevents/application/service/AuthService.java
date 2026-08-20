@@ -1,11 +1,11 @@
 package org.pmv.myspring.gijonevents.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.pmv.myspring.gijonevents.application.mapper.UsuarioApplicationMapper;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.CredencialesInvalidasException;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.EmailAlreadyExistsException;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsernameAlreadyExistsException;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsuarioInactivoException;
-import org.pmv.myspring.gijonevents.application.mapper.UserResultMapper;
 import org.pmv.myspring.gijonevents.application.port.in.LoginUserUseCase;
 import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
 import org.pmv.myspring.gijonevents.application.port.in.command.LoginUserCommand;
@@ -14,7 +14,7 @@ import org.pmv.myspring.gijonevents.application.port.in.result.LoginUserResult;
 import org.pmv.myspring.gijonevents.application.port.in.result.RegisterUserResult;
 import org.pmv.myspring.gijonevents.application.port.out.PasswordEncoderPort;
 import org.pmv.myspring.gijonevents.application.port.out.TokenGeneratorPort;
-import org.pmv.myspring.gijonevents.application.port.out.persistence.UserPort;
+import org.pmv.myspring.gijonevents.application.port.out.persistence.UsuarioPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +24,10 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class AuthService implements RegisterUserUseCase, LoginUserUseCase {
 
-    private final UserPort userPort;
+    private final UsuarioPort userPort;
     private final PasswordEncoderPort passwordEncoder;
     private final TokenGeneratorPort tokenGenerator;
-    private final UserResultMapper mapper;
+    private final UsuarioApplicationMapper mapper;
     //private final KafkaTemplate<String, String> kafkaTemplate;
 
 

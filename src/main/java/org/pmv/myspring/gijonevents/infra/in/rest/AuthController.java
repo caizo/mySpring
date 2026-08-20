@@ -13,7 +13,7 @@ import org.pmv.myspring.gijonevents.infra.in.rest.dto.LoginRequestDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.LoginUserResponseDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserRequestDto;
 import org.pmv.myspring.gijonevents.infra.in.rest.dto.RegisterUserResponseDto;
-import org.pmv.myspring.gijonevents.infra.in.rest.mapper.UserWebMapper;
+import org.pmv.myspring.gijonevents.infra.in.rest.mapper.UsuarioRestMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserWebMapper mapper;
+    private final UsuarioRestMapper mapper;
     private final RegisterUserUseCase registerUserUseCase;
     private final LoginUserUseCase loginUserUseCase;
 

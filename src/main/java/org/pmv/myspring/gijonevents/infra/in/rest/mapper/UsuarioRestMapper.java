@@ -14,7 +14,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Mapper(componentModel = "spring", imports = {DateTimeFormatter.class, ZoneId.class})
-public interface UserWebMapper {
+public interface UsuarioRestMapper {
 
 
 
