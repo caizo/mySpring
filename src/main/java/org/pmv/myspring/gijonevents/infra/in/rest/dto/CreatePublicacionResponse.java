@@ -1,26 +1,23 @@
-package org.pmv.myspring.gijonevents.domain.evento;
+package org.pmv.myspring.gijonevents.infra.in.rest.dto;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.pmv.myspring.gijonevents.domain.enums.EstadoPublicacion;
 import org.pmv.myspring.gijonevents.domain.enums.TipoPublicacion;
 
 import java.time.Instant;
 import java.util.List;
 
-@Data
+@Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Publicacion {
+public class CreatePublicacionResponse {
+
     private Long id;
     private String titulo;
     private String descripcion;
     private Instant fechaInicio;
     private Instant fechaFin;
-    private Long empresaId;
     private TipoPublicacion tipo;
     private EstadoPublicacion estado;
     private List<String> imagenes;

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtUtil implements TokenGeneratorPort {
+public class TokenGeneratorAdapter implements TokenGeneratorPort {
 
     private String secret = "secret";
 

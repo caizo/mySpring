@@ -2,7 +2,7 @@ package org.pmv.myspring.gijonevents.infra.out.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsuarioNotFoundException;
-import org.pmv.myspring.gijonevents.application.port.out.persistence.UserPort;
+import org.pmv.myspring.gijonevents.application.port.out.persistence.UsuarioPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.pmv.myspring.gijonevents.domain.usuario.UsuarioId;
 import org.pmv.myspring.gijonevents.infra.out.persistence.entity.UsuarioEntity;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class UserPersistenceAdapter implements UserPort {
+public class UserPersistenceAdapter implements UsuarioPort {
 
     private final UsuarioRepositoryJpa repository;
     private final UserPersistenceMapping mapper;

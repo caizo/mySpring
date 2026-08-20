@@ -23,7 +23,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
     private final UserDetailsService userDetailsService;
-    private final JwtUtil jwtUtil;
+    private final TokenGeneratorAdapter jwtUtil;
     private final TokenService tokenService;
 
     /**
