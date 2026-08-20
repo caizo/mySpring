@@ -1,9 +1,9 @@
-package org.pmv.myspring.gijonevents.application.exception.handler;
+package org.pmv.myspring.gijonevents.infra.in.rest.exception.handler;
 
-import org.pmv.myspring.gijonevents.application.exception.UsernameAlreadyExistsException;
-import org.pmv.myspring.gijonevents.application.exception.error.ApiError;
-import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
-import org.pmv.myspring.gijonevents.application.exception.EmailAlreadyExistsException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsernameAlreadyExistsException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.error.ApiError;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.EmailAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

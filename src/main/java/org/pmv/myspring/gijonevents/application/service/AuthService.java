@@ -1,10 +1,10 @@
 package org.pmv.myspring.gijonevents.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.gijonevents.application.exception.CredencialesInvalidasException;
-import org.pmv.myspring.gijonevents.application.exception.EmailAlreadyExistsException;
-import org.pmv.myspring.gijonevents.application.exception.UsernameAlreadyExistsException;
-import org.pmv.myspring.gijonevents.application.exception.UsuarioInactivoException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.CredencialesInvalidasException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.EmailAlreadyExistsException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsernameAlreadyExistsException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsuarioInactivoException;
 import org.pmv.myspring.gijonevents.application.mapper.UserResultMapper;
 import org.pmv.myspring.gijonevents.application.port.in.LoginUserUseCase;
 import org.pmv.myspring.gijonevents.application.port.in.RegisterUserUseCase;
@@ -16,8 +16,6 @@ import org.pmv.myspring.gijonevents.application.port.out.PasswordEncoderPort;
 import org.pmv.myspring.gijonevents.application.port.out.TokenGeneratorPort;
 import org.pmv.myspring.gijonevents.application.port.out.persistence.UserPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
-import org.pmv.myspring.gijonevents.infra.out.persistence.repository.UsuarioRepositoryJpa;
-import org.pmv.myspring.gijonevents.infra.out.security.jwt.JwtUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -26,12 +24,8 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class AuthService implements RegisterUserUseCase, LoginUserUseCase {
 
-    private final UsuarioRepositoryJpa usuarioRepository;
     private final UserPort userPort;
     private final PasswordEncoderPort passwordEncoder;
-    private final TokenService tokenService;
-    private final EmailService emailService;
-    private final JwtUtil jwtUtil;
     private final TokenGeneratorPort tokenGenerator;
     private final UserResultMapper mapper;
     //private final KafkaTemplate<String, String> kafkaTemplate;

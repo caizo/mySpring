@@ -1,7 +1,7 @@
 package org.pmv.myspring.gijonevents.infra.out.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.pmv.myspring.gijonevents.application.exception.UsuarioNotFoundException;
+import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsuarioNotFoundException;
 import org.pmv.myspring.gijonevents.application.port.out.persistence.UserPort;
 import org.pmv.myspring.gijonevents.domain.usuario.Usuario;
 import org.pmv.myspring.gijonevents.domain.usuario.UsuarioId;
