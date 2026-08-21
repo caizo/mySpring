@@ -1,5 +1,6 @@
 package org.pmv.myspring.gijonevents.infra.in.rest.exception.handler;
 
+import org.pmv.myspring.gijonevents.domain.exception.PublicacionNotFoundException;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsernameAlreadyExistsException;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.error.ApiError;
 import org.pmv.myspring.gijonevents.infra.in.rest.exception.UsuarioNotFoundException;
@@ -33,6 +34,15 @@ public class GlobalExceptionHandler {
         List<String> errors = new ArrayList<>();
         errors.add(ex.getMessage());
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "User not found", errors);
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+
+    }
+
+    @ExceptionHandler(PublicacionNotFoundException.class)
+    public ResponseEntity<ApiError> handlePublicacionNotFoundException(PublicacionNotFoundException ex) {
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "Publicación not found", errors);
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
 
     }
