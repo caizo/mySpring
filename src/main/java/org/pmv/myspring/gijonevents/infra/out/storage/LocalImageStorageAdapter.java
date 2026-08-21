@@ -1,19 +1,21 @@
 package org.pmv.myspring.gijonevents.infra.out.storage;
 
-import org.pmv.myspring.gijonevents.application.port.out.ImageStorage;
+import org.pmv.myspring.gijonevents.application.port.in.ModificarPublicacionUseCase;
+import org.pmv.myspring.gijonevents.application.port.in.command.ModificarImageInput;
+import org.pmv.myspring.gijonevents.application.port.out.ImageStoragePort;
+import org.pmv.myspring.gijonevents.domain.exception.ImageStorageException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Component
-public class LocalImageStorageAdapter implements ImageStorage {
+public class LocalImageStorageAdapter implements ImageStoragePort {
 
     private final Path uploadDirectory;
 
@@ -63,6 +65,31 @@ public class LocalImageStorageAdapter implements ImageStorage {
 
         } catch (IOException exception) {
             throw new IllegalStateException("No se pudo eliminar la imagen", exception);
+        }
+    }
+
+    @Override
+    public List<String> guardar(
+            Long publicacionId,
+            List<ModificarImageInput> imagenes) {
+
+        try {
+            Files.createDirectories(uploadDirectory);
+
+            List<String> rutasGuardadas = new ArrayList<>();
+
+            for (ModificarImageInput imagen : imagenes) {
+                String extension = getExtension(imagen.nombreOriginal());
+                String nombreArchivo = UUID.randomUUID() + extension;
+                Path destino = uploadDirectory.resolve(nombreArchivo);
+                Files.write(destino, imagen.contenido(), StandardOpenOption.CREATE_NEW);
+                rutasGuardadas.add(nombreArchivo);
+            }
+
+            return rutasGuardadas;
+
+        } catch (IOException e) {
+            throw new ImageStorageException("Error al guardar las imágenes de la publicación " + publicacionId);
         }
     }
 

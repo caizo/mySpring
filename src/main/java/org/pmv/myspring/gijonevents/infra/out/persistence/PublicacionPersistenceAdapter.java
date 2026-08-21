@@ -3,6 +3,7 @@ package org.pmv.myspring.gijonevents.infra.out.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.pmv.myspring.gijonevents.application.port.out.persistence.BuscarPublicacionesPort;
+import org.pmv.myspring.gijonevents.application.port.out.persistence.ModificarPublicacionPort;
 import org.pmv.myspring.gijonevents.application.port.out.persistence.ObtenerPublicacionPort;
 import org.pmv.myspring.gijonevents.application.port.out.persistence.PublicacionPort;
 import org.pmv.myspring.gijonevents.domain.evento.Publicacion;
@@ -20,7 +21,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class PublicacionPersistenceAdapter implements PublicacionPort, BuscarPublicacionesPort, ObtenerPublicacionPort {
+public class PublicacionPersistenceAdapter implements PublicacionPort, BuscarPublicacionesPort, ObtenerPublicacionPort, ModificarPublicacionPort {
 
     private final PublicacionJpaRepository repository;
     private final PublicacionPersistenceMapper mapper;
@@ -41,5 +42,12 @@ public class PublicacionPersistenceAdapter implements PublicacionPort, BuscarPub
     @Override
     public Optional<Publicacion> obtenerPorId(Long id) {
         return repository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public Publicacion modificar(Publicacion publicacion) {
+        PublicacionEntity entity = mapper.toEntity(publicacion);
+        PublicacionEntity guardada = repository.save(entity);
+        return mapper.toDomain(guardada);
     }
 }

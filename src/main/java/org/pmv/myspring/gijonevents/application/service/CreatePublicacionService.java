@@ -7,7 +7,7 @@ import org.pmv.myspring.gijonevents.application.port.in.CreatePublicacionUseCase
 import org.pmv.myspring.gijonevents.application.port.in.command.CreatePublicacionCommand;
 import org.pmv.myspring.gijonevents.application.port.in.command.ImageInput;
 import org.pmv.myspring.gijonevents.application.port.in.result.CreatePublicacionResult;
-import org.pmv.myspring.gijonevents.application.port.out.ImageStorage;
+import org.pmv.myspring.gijonevents.application.port.out.ImageStoragePort;
 import org.pmv.myspring.gijonevents.application.port.out.persistence.PublicacionPort;
 import org.pmv.myspring.gijonevents.domain.enums.EstadoPublicacion;
 import org.pmv.myspring.gijonevents.domain.evento.Publicacion;
@@ -22,7 +22,7 @@ import java.util.List;
 public class CreatePublicacionService implements CreatePublicacionUseCase {
 
     private final PublicacionPort publicacionRepository;
-    private final ImageStorage imageStorage;
+    private final ImageStoragePort imageStorage;
     private final CreatePublicacionApplicationMapper mapper;
 
     @Override
