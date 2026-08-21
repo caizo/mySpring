@@ -32,6 +32,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -238,4 +239,25 @@ class PublicacionControllerIntegrationTest {
             assertThat(Files.isRegularFile(imagen)).isTrue();
         }
     }
+
+//    @Test
+//    void deberiaListarPublicacionesPaginadas() throws Exception {
+//
+//        crearPublicacion("Publicación 1");
+//        crearPublicacion("Publicación 2");
+//        crearPublicacion("Publicación 3");
+//
+//        mockMvc.perform(
+//                        get("/api/publicaciones")
+//                                .param("page", "0")
+//                                .param("size", "2")
+//                                .accept(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.content.length()").value(2))
+//                .andExpect(jsonPath("$.page").value(0))
+//                .andExpect(jsonPath("$.size").value(2))
+//                .andExpect(jsonPath("$.totalElements").value(3))
+//                .andExpect(jsonPath("$.totalPages").value(2));
+//    }
 }
